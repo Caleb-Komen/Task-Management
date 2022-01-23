@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 interface ProjectDao {
     @Query("SELECT * FROM projects")
     @Transaction
-    fun getAllProjects(): Flow<List<ProjectWithTaskLists>>
+    fun getAllProjects(): Flow<List<ProjectWithTaskListsAndTasks>>
 
     @Query("SELECT * FROM projects WHERE id = :projectId")
     @Transaction
-    fun getProject(projectId: String): Flow<ProjectWithTaskLists>
+    fun getProject(projectId: String): Flow<ProjectWithTaskListsAndTasks>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun createProject(projectEntity: ProjectEntity):Long
