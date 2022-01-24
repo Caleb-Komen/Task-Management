@@ -3,6 +3,7 @@ package com.taskmanager.taskmanagement.data.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.taskmanager.taskmanagement.business.model.User
 import java.util.*
 
 @Entity(tableName = "tasks")
@@ -21,7 +22,7 @@ data class TaskEntity(
     val label: String,
 
     @ColumnInfo(name = "assigned_to")
-    val assignedTo: List<String>,
+    val assignedTo: List<User>,
 
     @ColumnInfo(name = "due_date")
     val dueDate: String,

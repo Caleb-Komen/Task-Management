@@ -16,6 +16,9 @@ data class TaskListEntity(
     @ColumnInfo(name = "title")
     val title: String,
 
+    @ColumnInfo(name = "tag")
+    val tag: String,
+
     @ColumnInfo(name = "project_id")
     val projectId: String
 )

@@ -3,9 +3,13 @@ package com.taskmanager.taskmanagement.business.model
 import java.util.*
 
 data class User(
-    private val id: String = UUID.randomUUID().toString(),
-    private val name: String = "",
-    private val username: String = "",
-    private val email: String = "",
-    private val photo: String = ""
-)
+    val id: String = UUID.randomUUID().toString(),
+    val name: String = "",
+    val username: String = "",
+    val email: String = "",
+    val photo: String = ""
+){
+    override fun toString(): String {
+        return name
+    }
+}

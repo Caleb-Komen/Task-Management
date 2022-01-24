@@ -3,10 +3,10 @@ package com.taskmanager.taskmanagement.business.model
 import java.util.*
 
 data class Task(
-    private val id: String = UUID.randomUUID().toString(),
-    private val title: String = "",
-    private val description: String = "",
-    private val label: String = "",
-    private val assignedTo: List<User> = emptyList(),
-    private val dueDate: String = ""
+    val id: String = UUID.randomUUID().toString(),
+    val title: String = "",
+    val description: String = "",
+    val label: String = "",
+    val assignedTo: List<User> = emptyList(),
+    val dueDate: String = ""
 )

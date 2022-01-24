@@ -4,8 +4,8 @@ import com.taskmanager.taskmanagement.business.util.Tag
 import java.util.*
 
 data class TaskList(
-    private val id: String = UUID.randomUUID().toString(),
-    private val title: String = "",
-    private val tasks: List<Task> = emptyList(),
-    private val tag: String = Tag.NONE.name
+    val id: String = UUID.randomUUID().toString(),
+    val title: String = "",
+    val tasks: List<Task> = emptyList(),
+    val tag: String = Tag.NONE.name
 )

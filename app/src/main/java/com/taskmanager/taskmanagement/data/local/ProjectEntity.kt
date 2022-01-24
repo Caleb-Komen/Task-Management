@@ -3,6 +3,7 @@ package com.taskmanager.taskmanagement.data.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.taskmanager.taskmanagement.business.model.User
 import java.util.*
 
 @Entity(tableName = "projects")
@@ -15,5 +16,5 @@ data class ProjectEntity(
     val name: String,
 
     @ColumnInfo(name = "members")
-    val members: List<String> = emptyList()
+    val members: List<User> = emptyList()
 )
