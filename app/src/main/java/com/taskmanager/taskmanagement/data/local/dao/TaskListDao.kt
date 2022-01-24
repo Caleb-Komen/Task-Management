@@ -1,7 +1,7 @@
-package com.taskmanager.taskmanagement.data.local
+package com.taskmanager.taskmanagement.data.local.dao
 
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
+import com.taskmanager.taskmanagement.data.local.entity.TaskListEntity
 
 @Dao
 interface TaskListDao {

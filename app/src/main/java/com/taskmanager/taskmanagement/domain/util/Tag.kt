@@ -1,4 +1,4 @@
-package com.taskmanager.taskmanagement.business.util
+package com.taskmanager.taskmanagement.domain.util
 
 enum class Tag {
     NONE,

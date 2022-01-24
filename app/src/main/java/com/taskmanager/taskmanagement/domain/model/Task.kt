@@ -1,4 +1,4 @@
-package com.taskmanager.taskmanagement.business.model
+package com.taskmanager.taskmanagement.domain.model
 
 import java.util.*
 

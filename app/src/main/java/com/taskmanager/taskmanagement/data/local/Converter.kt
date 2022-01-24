@@ -3,7 +3,7 @@ package com.taskmanager.taskmanagement.data.local
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.taskmanager.taskmanagement.business.model.User
+import com.taskmanager.taskmanagement.domain.model.User
 
 class Converter {
     @TypeConverter

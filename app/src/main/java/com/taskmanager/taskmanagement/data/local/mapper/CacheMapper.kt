@@ -1,11 +1,11 @@
 package com.taskmanager.taskmanagement.data.local.mapper
 
-import com.taskmanager.taskmanagement.business.model.Project
-import com.taskmanager.taskmanagement.business.model.Task
-import com.taskmanager.taskmanagement.business.model.TaskList
-import com.taskmanager.taskmanagement.data.local.*
+import com.taskmanager.taskmanagement.domain.model.Project
+import com.taskmanager.taskmanagement.domain.model.Task
+import com.taskmanager.taskmanagement.domain.model.TaskList
+import com.taskmanager.taskmanagement.data.local.entity.*
 
-fun Task.toEntity(taskListId: String): TaskEntity{
+fun Task.toEntity(taskListId: String): TaskEntity {
     return TaskEntity(
         id = id,
         title = title,
@@ -28,7 +28,7 @@ fun TaskEntity.toDomain(): Task{
     )
 }
 
-fun TaskList.toEntity(projectId: String): TaskListEntity{
+fun TaskList.toEntity(projectId: String): TaskListEntity {
     return TaskListEntity(
         id = id,
         title = title,
@@ -54,7 +54,7 @@ fun TaskListWithTasks.toDomain(): TaskList{
     )
 }
 
-fun Project.toEntity(): ProjectEntity{
+fun Project.toEntity(): ProjectEntity {
     return ProjectEntity(
         id = id,
         name = name,

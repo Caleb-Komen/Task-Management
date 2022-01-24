@@ -1,4 +1,4 @@
-package com.taskmanager.taskmanagement.data.local
+package com.taskmanager.taskmanagement.data.local.entity
 
 import androidx.room.Embedded
 import androidx.room.Relation

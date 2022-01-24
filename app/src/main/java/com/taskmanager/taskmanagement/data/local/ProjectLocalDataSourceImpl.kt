@@ -1,8 +1,11 @@
 package com.taskmanager.taskmanagement.data.local
 
-import com.taskmanager.taskmanagement.business.model.Project
-import com.taskmanager.taskmanagement.business.model.Task
-import com.taskmanager.taskmanagement.business.model.TaskList
+import com.taskmanager.taskmanagement.data.local.dao.ProjectDao
+import com.taskmanager.taskmanagement.data.local.dao.TaskDao
+import com.taskmanager.taskmanagement.data.local.dao.TaskListDao
+import com.taskmanager.taskmanagement.domain.model.Project
+import com.taskmanager.taskmanagement.domain.model.Task
+import com.taskmanager.taskmanagement.domain.model.TaskList
 import kotlinx.coroutines.flow.Flow
 
 class ProjectLocalDataSourceImpl(

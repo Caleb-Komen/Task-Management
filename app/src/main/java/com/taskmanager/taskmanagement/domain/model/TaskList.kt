@@ -1,6 +1,6 @@
-package com.taskmanager.taskmanagement.business.model
+package com.taskmanager.taskmanagement.domain.model
 
-import com.taskmanager.taskmanagement.business.util.Tag
+import com.taskmanager.taskmanagement.domain.util.Tag
 import java.util.*
 
 data class TaskList(

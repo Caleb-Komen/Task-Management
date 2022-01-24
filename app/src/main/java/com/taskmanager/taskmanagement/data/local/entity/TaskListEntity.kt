@@ -1,10 +1,8 @@
-package com.taskmanager.taskmanagement.data.local
+package com.taskmanager.taskmanagement.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.taskmanager.taskmanagement.business.model.Task
-import com.taskmanager.taskmanagement.business.util.Tag
 import java.util.*
 
 @Entity(tableName = "taskLists")

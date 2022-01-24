@@ -1,6 +1,6 @@
-package com.taskmanager.taskmanagement.business.repository
+package com.taskmanager.taskmanagement.domain.repository
 
-import com.taskmanager.taskmanagement.business.model.TaskList
+import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.data.local.Result
 import kotlinx.coroutines.flow.Flow
 
