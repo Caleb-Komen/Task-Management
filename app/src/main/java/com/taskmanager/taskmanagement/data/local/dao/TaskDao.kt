@@ -10,7 +10,7 @@ interface TaskDao {
     fun getTask(taskId: String): Flow<List<TaskEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun createTask(taskEntity: TaskEntity): Long
+    suspend fun insertTask(taskEntity: TaskEntity): Long
 
     @Update
     suspend fun updateTask(taskEntity: TaskEntity): Int

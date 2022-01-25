@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface ProjectRepository {
     fun getAllProjects(): Flow<Result<List<Project>>>
 
-    fun getProject(): Flow<Result<Project>>
+    fun getProject(id: String): Flow<Result<Project>>
 
     fun searchProjects(name: String): Flow<Result<List<Project>>>
 
