@@ -17,7 +17,7 @@ class ProjectLocalDataSourceImpl(
         TODO("Not yet implemented")
     }
 
-    override fun getProject(): Flow<Result<Project>> {
+    override fun getProject(projectId: String): Flow<Result<Project>> {
         TODO("Not yet implemented")
     }
 
@@ -37,7 +37,7 @@ class ProjectLocalDataSourceImpl(
         TODO("Not yet implemented")
     }
 
-    override fun getTaskLists(): Flow<Result<List<TaskList>>> {
+    override fun getTaskLists(projectId: String): Flow<Result<List<TaskList>>> {
         TODO("Not yet implemented")
     }
 

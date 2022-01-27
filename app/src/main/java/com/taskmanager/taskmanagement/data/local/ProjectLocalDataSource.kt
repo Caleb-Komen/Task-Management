@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface ProjectLocalDataSource {
     fun getAllProjects(): Flow<Result<List<Project>>>
 
-    fun getProject(): Flow<Result<Project>>
+    fun getProject(projectId: String): Flow<Result<Project>>
 
     fun searchProjects(name: String): Flow<Result<List<Project>>>
 
@@ -18,7 +18,7 @@ interface ProjectLocalDataSource {
 
     suspend fun deleteProject(id: String)
 
-    fun getTaskLists(): Flow<Result<List<TaskList>>>
+    fun getTaskLists(projectId: String): Flow<Result<List<TaskList>>>
 
     suspend fun createTaskList(taskList: TaskList)
 
