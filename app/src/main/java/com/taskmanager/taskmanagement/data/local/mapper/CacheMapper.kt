@@ -66,7 +66,7 @@ fun ProjectWithTaskListsAndTasks.toDomain(): Project{
     return Project(
         id = projectEntity.id,
         name = projectEntity.name,
-        taskLists = taskListEntities.map { it.taskListEntity.toDomain() },
+        taskLists = taskListEntities.map { it.toDomain() },
         members = projectEntity.members
     )
 }

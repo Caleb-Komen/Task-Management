@@ -6,8 +6,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
+    @Query("SELECT * FROM tasks")
+    fun getAllTask(): List<TaskEntity>
+
     @Query("SELECT * FROM tasks WHERE id = :taskId")
-    fun getTask(taskId: String): Flow<List<TaskEntity>>
+    fun getTask(taskId: String): TaskEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTask(taskEntity: TaskEntity): Long

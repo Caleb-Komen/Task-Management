@@ -9,14 +9,18 @@ import kotlinx.coroutines.flow.Flow
 interface ProjectDao {
     @Query("SELECT * FROM projects")
     @Transaction
-    fun getAllProjects(): Flow<List<ProjectWithTaskListsAndTasks>>
+    fun getAllProjects(): List<ProjectWithTaskListsAndTasks>
 
     @Query("SELECT * FROM projects WHERE id = :projectId")
     @Transaction
-    fun getProject(projectId: String): Flow<ProjectWithTaskListsAndTasks>
+    fun getProject(projectId: String): ProjectWithTaskListsAndTasks
+
+    @Transaction
+    @Query("SELECT * FROM projects WHERE name LIKE '%' || :key || '%'")
+    fun searchProjects(key: String): List<ProjectWithTaskListsAndTasks>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun createProject(projectEntity: ProjectEntity):Long
+    suspend fun createProject(projectEntity: ProjectEntity): Long
 
     @Update
     suspend fun updateProject(projectEntity: ProjectEntity): Int

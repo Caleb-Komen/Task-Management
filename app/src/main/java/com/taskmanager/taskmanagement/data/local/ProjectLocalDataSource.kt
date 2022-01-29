@@ -3,38 +3,37 @@ package com.taskmanager.taskmanagement.data.local
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.Task
 import com.taskmanager.taskmanagement.domain.model.TaskList
-import kotlinx.coroutines.flow.Flow
 
 interface ProjectLocalDataSource {
-    fun getAllProjects(): Flow<Result<List<Project>>>
+    fun getAllProjects(): List<Project>
 
-    fun getProject(projectId: String): Flow<Result<Project>>
+    fun getProject(projectId: String): Project
 
-    fun searchProjects(name: String): Flow<Result<List<Project>>>
+    fun searchProjects(name: String): List<Project>
 
-    suspend fun createProject(project: Project)
+    suspend fun createProject(project: Project): Long
 
-    suspend fun updateProject(project: Project)
+    suspend fun updateProject(project: Project): Int
 
-    suspend fun deleteProject(id: String)
+    suspend fun deleteProject(id: String): Int
 
-    fun getTaskLists(projectId: String): Flow<Result<List<TaskList>>>
+    fun getTaskLists(projectId: String): List<TaskList>
 
-    suspend fun createTaskList(taskList: TaskList)
+    suspend fun createTaskList(taskList: TaskList, projectId: String): Long
 
-    suspend fun updateTaskList(taskList: TaskList)
+    suspend fun updateTaskList(taskList: TaskList, projectId: String): Int
 
-    suspend fun deleteTaskList(id: String)
+    suspend fun deleteTaskList(id: String): Int
 
-    fun getAllTasks(): Flow<Result<List<Task>>>
+    fun getAllTasks(): List<Task>
 
-    fun getTask(): Flow<Result<Task>>
+    fun getTask(taskId: String): Task
 
-    suspend fun createTask(task: Task)
+    suspend fun createTask(task: Task, taskListId: String): Long
 
-    suspend fun updateTask(task: Task)
+    suspend fun updateTask(task: Task, taskListId: String): Int
 
-    suspend fun deleteAllTasks()
+    suspend fun deleteAllTasks(): Int
 
-    suspend fun deleteTask(id: String)
+    suspend fun deleteTask(id: String): Int
 }
