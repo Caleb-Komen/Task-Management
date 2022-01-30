@@ -1,11 +1,11 @@
 package com.taskmanager.taskmanagement.domain.repository
 
 import com.taskmanager.taskmanagement.domain.model.Task
-import com.taskmanager.taskmanagement.data.local.Result
+import com.taskmanager.taskmanagement.data.local.CacheResult
 import kotlinx.coroutines.flow.Flow
 
 interface TasksRepository {
-    fun getTask(taskId: String): Flow<Result<Task>>
+    fun getTask(taskId: String): Flow<CacheResult<Task>>
 
     suspend fun createTask(task: Task)
 
