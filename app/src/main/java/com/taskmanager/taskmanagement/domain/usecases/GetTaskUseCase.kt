@@ -2,7 +2,6 @@ package com.taskmanager.taskmanagement.domain.usecases
 
 import com.taskmanager.taskmanagement.data.local.Result
 import com.taskmanager.taskmanagement.domain.model.Task
-import com.taskmanager.taskmanagement.domain.repository.ProjectRepository
 import com.taskmanager.taskmanagement.domain.repository.TasksRepository
 import kotlinx.coroutines.flow.Flow
 

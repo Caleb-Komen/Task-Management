@@ -10,7 +10,6 @@ import com.taskmanager.taskmanagement.data.remote.mapper.toEntity
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.model.User
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 
 class ProjectRemoteSourceImpl(
@@ -118,7 +117,7 @@ class ProjectRemoteSourceImpl(
     override suspend fun deleteTaskList(taskList: TaskList,  projectId: String) {
         val entity = taskList.toEntity(projectId)
         firestore.collection(TASKS_LISTS_COLLECTION)
-            .document(taskList.id)
+            .document(entity.id)
             .delete()
             .addOnFailureListener {
                 log(it.message)

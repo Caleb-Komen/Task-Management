@@ -1,10 +1,8 @@
 package com.taskmanager.taskmanagement.data.remote
 
-import com.taskmanager.taskmanagement.data.remote.entity.TaskListNetworkEntity
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.model.User
-import kotlinx.coroutines.flow.Flow
 
 interface ProjectRemoteDataSource {
     suspend fun getAllProjects(): List<Project>
