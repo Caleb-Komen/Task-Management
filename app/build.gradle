@@ -45,6 +45,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2'
+
 
     def roomVersion = "2.4.1"
     implementation "androidx.room:room-runtime:$roomVersion"
@@ -55,4 +57,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:29.0.4')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
 }

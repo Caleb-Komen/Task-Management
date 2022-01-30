@@ -1,5 +1,6 @@
 package com.taskmanager.taskmanagement.data.remote.mapper
 
+import com.google.firebase.firestore.FirebaseFirestore
 import com.taskmanager.taskmanagement.data.local.entity.TaskListEntity
 import com.taskmanager.taskmanagement.data.remote.ProjectRemoteSourceImpl
 import com.taskmanager.taskmanagement.data.remote.entity.FirebaseUser
@@ -42,8 +43,8 @@ fun Task.toEntity(): TaskNetworkEntity{
     )
 }
 
-fun TaskNetworkEntity.toDomain(): Task{
-    val source = ProjectRemoteSourceImpl()
+fun TaskNetworkEntity.toDomain(firestore: FirebaseFirestore? = null): Task{
+    val source = ProjectRemoteSourceImpl(firestore!!)
     val users = assignedTo.map { id ->
         source.getUser(id)
     }
@@ -53,7 +54,7 @@ fun TaskNetworkEntity.toDomain(): Task{
         title = title,
         description = description,
         label = label,
-        assignedTo = users,
+        assignedTo = users as List<User>,
         dueDate = dueDate
     )
 }
@@ -85,14 +86,17 @@ fun Project.toEntity(): ProjectNetworkEntity{
     )
 }
 
-fun ProjectNetworkEntity.toDomain(): Project{
-    val source = ProjectRemoteSourceImpl()
+fun ProjectNetworkEntity.toDomain(firestore: FirebaseFirestore? = null): Project{
+    val source = ProjectRemoteSourceImpl(firestore!!)
     return Project(
         id = id,
         name = name,
-        taskLists = taskLists.map { id ->
-            source.getTaskList(id)
-        }
+        taskLists = taskLists.map {
+            source.getTaskList(it)
+        } as List<TaskList>,
+        members = members.map {
+            source.getUser(it)
+        } as List<User>
     )
 }
 

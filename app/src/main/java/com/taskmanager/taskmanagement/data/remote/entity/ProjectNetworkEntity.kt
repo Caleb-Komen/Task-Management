@@ -5,4 +5,6 @@ data class ProjectNetworkEntity(
     val name: String,
     val taskLists: List<String>,
     val members: List<String>
-)
+){
+    constructor(): this("", "", emptyList(), emptyList())
+}
