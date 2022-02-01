@@ -1,6 +1,7 @@
 package com.taskmanager.taskmanagement.data.remote
 
 import com.taskmanager.taskmanagement.domain.model.Project
+import com.taskmanager.taskmanagement.domain.model.Task
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.model.User
 
@@ -19,9 +20,17 @@ interface ProjectRemoteDataSource {
 
     fun getTaskList(id: String): TaskList?
 
-    suspend fun updateTaskList(taskList: TaskList, projectId: String)
+    suspend fun insertTaskList(taskList: TaskList)
 
-    suspend fun deleteTaskList(taskList: TaskList, projectId: String)
+    suspend fun updateTaskList(taskList: TaskList)
+
+    suspend fun deleteTaskList(taskList: TaskList)
+
+    suspend fun insertTask(task: Task)
+
+    suspend fun updateTask(task: Task)
+
+    suspend fun deleteTask(task: Task)
 
     suspend fun getUserById(id: String): User?
 

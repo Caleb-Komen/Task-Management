@@ -8,6 +8,7 @@ import com.taskmanager.taskmanagement.data.remote.entity.TaskListNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.mapper.toDomain
 import com.taskmanager.taskmanagement.data.remote.mapper.toEntity
 import com.taskmanager.taskmanagement.domain.model.Project
+import com.taskmanager.taskmanagement.domain.model.Task
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.model.User
 import kotlinx.coroutines.tasks.await
@@ -24,7 +25,7 @@ class ProjectRemoteSourceImpl(
             .await()
             .toObjects(ProjectNetworkEntity::class.java)
             .map {
-                it.toDomain()
+                it.toDomain(firestore)
             }
     }
 
@@ -85,7 +86,7 @@ class ProjectRemoteSourceImpl(
             .await()
             .toObjects(TaskListNetworkEntity::class.java)
             .map {
-                it.toDomain()
+                it.toDomain(firestore)
             }
     }
 
@@ -95,7 +96,7 @@ class ProjectRemoteSourceImpl(
             .document(id)
             .get()
             .addOnSuccessListener { documentSnapshot ->
-                taskList = documentSnapshot.toObject(TaskListNetworkEntity::class.java)?.toDomain()
+                taskList = documentSnapshot.toObject(TaskListNetworkEntity::class.java)?.toDomain(firestore)
             }
             .addOnFailureListener {
                 log(it.message)
@@ -103,8 +104,12 @@ class ProjectRemoteSourceImpl(
         return taskList
     }
 
-    override suspend fun updateTaskList(taskList: TaskList, projectId: String) {
-        val entity = taskList.toEntity(projectId)
+    override suspend fun insertTaskList(taskList: TaskList) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateTaskList(taskList: TaskList) {
+        val entity = taskList.toEntity()
         firestore.collection(TASKS_LISTS_COLLECTION)
             .document(entity.id)
             .set(entity)
@@ -114,8 +119,8 @@ class ProjectRemoteSourceImpl(
             .await()
     }
 
-    override suspend fun deleteTaskList(taskList: TaskList,  projectId: String) {
-        val entity = taskList.toEntity(projectId)
+    override suspend fun deleteTaskList(taskList: TaskList) {
+        val entity = taskList.toEntity()
         firestore.collection(TASKS_LISTS_COLLECTION)
             .document(entity.id)
             .delete()
@@ -123,6 +128,18 @@ class ProjectRemoteSourceImpl(
                 log(it.message)
             }
             .await()
+    }
+
+    override suspend fun insertTask(task: Task) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateTask(task: Task) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteTask(task: Task) {
+        TODO("Not yet implemented")
     }
 
     override suspend fun getUserById(id: String): User? {
