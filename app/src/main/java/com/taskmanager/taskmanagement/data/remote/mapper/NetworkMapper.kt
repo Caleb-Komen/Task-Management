@@ -43,8 +43,8 @@ fun Task.toEntity(): TaskNetworkEntity{
     )
 }
 
-fun TaskNetworkEntity.toDomain(firestore: FirebaseFirestore? = null): Task{
-    val source = ProjectRemoteSourceImpl(firestore!!)
+fun TaskNetworkEntity.toDomain(firestore: FirebaseFirestore): Task{
+    val source = ProjectRemoteSourceImpl(firestore)
     val users = assignedTo.map { id ->
         source.getUser(id)
     }
@@ -59,20 +59,20 @@ fun TaskNetworkEntity.toDomain(firestore: FirebaseFirestore? = null): Task{
     )
 }
 
-fun TaskList.toEntity(projectId: String): TaskListEntity{
-    return TaskListEntity(
+fun TaskList.toEntity(): TaskListNetworkEntity{
+    return TaskListNetworkEntity(
         id = id,
         title = title,
         tag = tag,
-        projectId = projectId
+        tasks = tasks.map { it.toEntity() }
     )
 }
 
-fun TaskListNetworkEntity.toDomain(): TaskList{
+fun TaskListNetworkEntity.toDomain(firestore: FirebaseFirestore): TaskList{
     return TaskList(
         id = id,
         title = title,
-        tasks = tasks.map { it.toDomain() },
+        tasks = tasks.map { it.toDomain(firestore) },
         tag = tag
     )
 }
@@ -81,19 +81,19 @@ fun Project.toEntity(): ProjectNetworkEntity{
     return ProjectNetworkEntity(
         id = id,
         name = name,
+        taskLists = taskLists.map { it.toEntity() },
         members = members.map { it.id },
-        taskLists = taskLists.map { it.id }
     )
 }
 
-fun ProjectNetworkEntity.toDomain(firestore: FirebaseFirestore? = null): Project{
-    val source = ProjectRemoteSourceImpl(firestore!!)
+fun ProjectNetworkEntity.toDomain(firestore: FirebaseFirestore): Project{
+    val source = ProjectRemoteSourceImpl(firestore)
     return Project(
         id = id,
         name = name,
         taskLists = taskLists.map {
-            source.getTaskList(it)
-        } as List<TaskList>,
+            it.toDomain(firestore)
+        },
         members = members.map {
             source.getUser(it)
         } as List<User>

@@ -8,6 +8,8 @@ import com.taskmanager.taskmanagement.domain.model.User
 interface ProjectRemoteDataSource {
     suspend fun getAllProjects(): List<Project>
 
+    suspend fun getProject(projectId: String): Project
+
     suspend fun getAssignedMembers(membersId: List<String>): List<User>
 
     suspend fun insertProject(project: Project)
@@ -15,22 +17,6 @@ interface ProjectRemoteDataSource {
     suspend fun updateProject(project: Project)
 
     suspend fun deleteProject( projectId: String)
-
-    suspend fun getTaskLists(taskListsId: List<String>): List<TaskList>
-
-    fun getTaskList(id: String): TaskList?
-
-    suspend fun insertTaskList(taskList: TaskList)
-
-    suspend fun updateTaskList(taskList: TaskList)
-
-    suspend fun deleteTaskList(taskList: TaskList)
-
-    suspend fun insertTask(task: Task)
-
-    suspend fun updateTask(task: Task)
-
-    suspend fun deleteTask(task: Task)
 
     suspend fun getUserById(id: String): User?
 

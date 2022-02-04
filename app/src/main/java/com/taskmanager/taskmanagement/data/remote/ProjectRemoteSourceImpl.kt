@@ -17,7 +17,7 @@ class ProjectRemoteSourceImpl(
     private val firestore: FirebaseFirestore
 ): ProjectRemoteDataSource {
     override suspend fun getAllProjects(): List<Project> {
-        return firestore.collection("Projects")
+        return firestore.collection(PROJECTS_COLLECTION)
             .get()
             .addOnFailureListener {
                 log(it.message)
@@ -27,6 +27,18 @@ class ProjectRemoteSourceImpl(
             .map {
                 it.toDomain(firestore)
             }
+    }
+
+    override suspend fun getProject(projectId: String): Project {
+        return firestore.collection(PROJECTS_COLLECTION)
+            .document(projectId)
+            .get()
+            .addOnFailureListener {
+                log(it.message)
+            }
+            .await()
+            .toObject(ProjectNetworkEntity::class.java)
+            ?.toDomain(firestore) ?: Project(id = projectId, name = "")
     }
 
     override suspend fun getAssignedMembers(membersId: List<String>): List<User> {
@@ -74,72 +86,6 @@ class ProjectRemoteSourceImpl(
                 log(it.message)
             }
             .await()
-    }
-
-    override suspend fun getTaskLists(taskListsId: List<String>): List<TaskList> {
-        return firestore.collection(TASKS_LISTS_COLLECTION)
-            .whereIn("id", taskListsId)
-            .get()
-            .addOnFailureListener {
-                log(it.message)
-            }
-            .await()
-            .toObjects(TaskListNetworkEntity::class.java)
-            .map {
-                it.toDomain(firestore)
-            }
-    }
-
-    override fun getTaskList(id: String): TaskList? {
-        var taskList: TaskList? = null
-        firestore.collection(TASKS_LISTS_COLLECTION)
-            .document(id)
-            .get()
-            .addOnSuccessListener { documentSnapshot ->
-                taskList = documentSnapshot.toObject(TaskListNetworkEntity::class.java)?.toDomain(firestore)
-            }
-            .addOnFailureListener {
-                log(it.message)
-            }
-        return taskList
-    }
-
-    override suspend fun insertTaskList(taskList: TaskList) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun updateTaskList(taskList: TaskList) {
-        val entity = taskList.toEntity()
-        firestore.collection(TASKS_LISTS_COLLECTION)
-            .document(entity.id)
-            .set(entity)
-            .addOnFailureListener {
-                log(it.message)
-            }
-            .await()
-    }
-
-    override suspend fun deleteTaskList(taskList: TaskList) {
-        val entity = taskList.toEntity()
-        firestore.collection(TASKS_LISTS_COLLECTION)
-            .document(entity.id)
-            .delete()
-            .addOnFailureListener {
-                log(it.message)
-            }
-            .await()
-    }
-
-    override suspend fun insertTask(task: Task) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun updateTask(task: Task) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun deleteTask(task: Task) {
-        TODO("Not yet implemented")
     }
 
     override suspend fun getUserById(id: String): User? {
@@ -211,7 +157,6 @@ class ProjectRemoteSourceImpl(
 
     companion object{
         const val PROJECTS_COLLECTION = "Projects"
-        const val TASKS_LISTS_COLLECTION = "TasksLists"
         const val USERS_COLLECTION = "Users"
 
         fun log(message: String?){
