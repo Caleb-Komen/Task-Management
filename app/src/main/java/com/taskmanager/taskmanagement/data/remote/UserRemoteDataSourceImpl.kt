@@ -2,7 +2,7 @@ package com.taskmanager.taskmanagement.data.remote
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.taskmanager.taskmanagement.data.remote.Constants.USERS_COLLECTION
-import com.taskmanager.taskmanagement.data.remote.entity.FirebaseUser
+import com.taskmanager.taskmanagement.data.remote.entity.UserNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.mapper.toDomain
 import com.taskmanager.taskmanagement.data.remote.mapper.toEntity
 import com.taskmanager.taskmanagement.data.util.log
@@ -37,7 +37,7 @@ class UserRemoteDataSourceImpl(
                 log(it.message)
             }
             .await()
-            .toObject(FirebaseUser::class.java)
+            .toObject(UserNetworkEntity::class.java)
             ?.toDomain()
     }
 
@@ -48,7 +48,7 @@ class UserRemoteDataSourceImpl(
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    user = task.result.toObject(FirebaseUser::class.java)?.toDomain()
+                    user = task.result.toObject(UserNetworkEntity::class.java)?.toDomain()
                 } else {
                     log(task.exception?.message)
                 }
@@ -64,7 +64,7 @@ class UserRemoteDataSourceImpl(
                 log(it.message)
             }
             .await()
-            .toObjects(FirebaseUser::class.java)
+            .toObjects(UserNetworkEntity::class.java)
             .map {
                 it.toDomain()
             }

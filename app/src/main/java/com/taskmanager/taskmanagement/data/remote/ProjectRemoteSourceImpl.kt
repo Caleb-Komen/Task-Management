@@ -1,18 +1,14 @@
 package com.taskmanager.taskmanagement.data.remote
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.taskmanager.taskmanagement.data.remote.Constants.PROJECTS_COLLECTION
 import com.taskmanager.taskmanagement.data.remote.Constants.USERS_COLLECTION
-import com.taskmanager.taskmanagement.data.remote.entity.FirebaseUser
+import com.taskmanager.taskmanagement.data.remote.entity.UserNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.entity.ProjectNetworkEntity
-import com.taskmanager.taskmanagement.data.remote.entity.TaskListNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.mapper.toDomain
 import com.taskmanager.taskmanagement.data.remote.mapper.toEntity
 import com.taskmanager.taskmanagement.data.util.log
 import com.taskmanager.taskmanagement.domain.model.Project
-import com.taskmanager.taskmanagement.domain.model.Task
-import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.model.User
 import kotlinx.coroutines.tasks.await
 
@@ -52,7 +48,7 @@ class ProjectRemoteSourceImpl(
                 log(it.message)
             }
             .await()
-            .toObjects(FirebaseUser::class.java)
+            .toObjects(UserNetworkEntity::class.java)
             .map {
                 it.toDomain()
             }

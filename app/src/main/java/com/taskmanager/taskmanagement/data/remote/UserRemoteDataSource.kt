@@ -1,6 +1,5 @@
 package com.taskmanager.taskmanagement.data.remote
 
-import com.taskmanager.taskmanagement.data.remote.entity.FirebaseUser
 import com.taskmanager.taskmanagement.domain.model.User
 
 interface UserRemoteDataSource {

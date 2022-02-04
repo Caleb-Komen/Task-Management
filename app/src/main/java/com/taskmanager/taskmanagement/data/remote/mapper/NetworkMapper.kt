@@ -1,10 +1,8 @@
 package com.taskmanager.taskmanagement.data.remote.mapper
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.taskmanager.taskmanagement.data.local.entity.TaskListEntity
-import com.taskmanager.taskmanagement.data.remote.ProjectRemoteSourceImpl
 import com.taskmanager.taskmanagement.data.remote.UserRemoteDataSourceImpl
-import com.taskmanager.taskmanagement.data.remote.entity.FirebaseUser
+import com.taskmanager.taskmanagement.data.remote.entity.UserNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.entity.ProjectNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.entity.TaskListNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.entity.TaskNetworkEntity
@@ -13,8 +11,8 @@ import com.taskmanager.taskmanagement.domain.model.Task
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.model.User
 
-fun User.toEntity(): FirebaseUser{
-    return FirebaseUser(
+fun User.toEntity(): UserNetworkEntity{
+    return UserNetworkEntity(
         id = id,
         name = name,
         username = username,
@@ -23,7 +21,7 @@ fun User.toEntity(): FirebaseUser{
     )
 }
 
-fun FirebaseUser.toDomain(): User{
+fun UserNetworkEntity.toDomain(): User{
     return User(
         id = id,
         name = name,
