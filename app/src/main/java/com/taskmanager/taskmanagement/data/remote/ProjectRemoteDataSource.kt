@@ -18,13 +18,4 @@ interface ProjectRemoteDataSource {
 
     suspend fun deleteProject( projectId: String)
 
-    suspend fun getUserById(id: String): User?
-
-    fun getUser(id: String): User?
-
-    suspend fun getUserByName(name: String): List<User?>
-
-    suspend fun updateUser(user: User)
-
-    suspend fun deleteUser(id: String)
 }

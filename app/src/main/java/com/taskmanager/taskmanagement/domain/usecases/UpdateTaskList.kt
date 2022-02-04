@@ -6,7 +6,7 @@ import com.taskmanager.taskmanagement.domain.repository.TaskListRepository
 class UpdateTaskList(
     private val repository: TaskListRepository
 ) {
-    suspend operator fun invoke(taskList: TaskList){
-        repository.updateTaskList(taskList)
+    suspend operator fun invoke(taskList: TaskList, projectId: String){
+        repository.updateTaskList(taskList, projectId)
     }
 }

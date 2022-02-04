@@ -5,7 +5,7 @@ import com.taskmanager.taskmanagement.domain.repository.TaskListRepository
 class DeleteTaskListUseCase(
     private val repository: TaskListRepository
 ) {
-    suspend operator fun invoke(id: String){
-        repository.deleteTaskList(id)
+    suspend operator fun invoke(taskListId: String, projectId: String){
+        repository.deleteTaskList(taskListId, projectId)
     }
 }
