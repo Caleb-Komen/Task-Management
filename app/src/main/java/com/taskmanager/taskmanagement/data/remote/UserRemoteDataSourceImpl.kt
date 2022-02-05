@@ -1,6 +1,13 @@
 package com.taskmanager.taskmanagement.data.remote
 
+import android.net.Uri
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+import com.taskmanager.taskmanagement.data.remote.Constants.SIGN_IN_FAILED
+import com.taskmanager.taskmanagement.data.remote.Constants.SIGN_UP_FAILED
 import com.taskmanager.taskmanagement.data.remote.Constants.USERS_COLLECTION
 import com.taskmanager.taskmanagement.data.remote.entity.UserNetworkEntity
 import com.taskmanager.taskmanagement.data.remote.mapper.toDomain
@@ -10,23 +17,82 @@ import com.taskmanager.taskmanagement.domain.model.User
 import kotlinx.coroutines.tasks.await
 
 class UserRemoteDataSourceImpl(
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
 ): UserRemoteDataSource {
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
     override suspend fun signUpUser(
         name: String,
         username: String,
         email: String,
         password: String
-    ) {
-        TODO("Not yet implemented")
+    ): LiveData<NetworkResult<User>> {
+        val result = MutableLiveData<NetworkResult<User>>()
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnFailureListener {
+                result.value = NetworkResult.GenericError(null, SIGN_UP_FAILED)
+                log(it.message)
+            }
+            .await()
+            .user?.let { firebaseUser ->
+                val userEntity = UserNetworkEntity(
+                    id = firebaseUser.uid,
+                    name = name,
+                    username = username,
+                    email = firebaseUser.email!!,
+                    photo = ""
+                )
+                val user = userEntity.toDomain()
+                updateProfile(user)
+                result.value = NetworkResult.Success(user)
+            }
+        return result
     }
 
-    override suspend fun signInUser(email: String, password: String) {
-        TODO("Not yet implemented")
+    override suspend fun signInUser(email: String, password: String): LiveData<NetworkResult<User>> {
+        val result = MutableLiveData<NetworkResult<User>>()
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnFailureListener {
+                result.value = NetworkResult.GenericError(null, SIGN_IN_FAILED)
+                log(it.message)
+            }
+            .await()
+            .user.also {
+                val firebaseUser = firebaseAuth.currentUser!!
+                val user = getUserById(firebaseUser.uid)!!
+                result.value = NetworkResult.Success(user)
+            }
+        return result
     }
 
     override suspend fun signOutUser() {
-        TODO("Not yet implemented")
+        firebaseAuth.signOut()
+    }
+
+    override suspend fun updateProfile(user: User){
+        val firebaseUser = firebaseAuth.currentUser!!
+        val profileUpdates = userProfileChangeRequest {
+            displayName = user.name
+            photoUri = Uri.parse(user.photo)
+        }
+        firebaseUser.updateProfile(profileUpdates)
+            .addOnFailureListener {
+                log(it.message)
+            }
+            .await()
+            .also {
+                saveUser(user.toEntity())
+            }
+    }
+
+    private suspend fun saveUser(user: UserNetworkEntity) {
+        firestore.collection(USERS_COLLECTION)
+            .document(user.id)
+            .set(user)
+            .addOnFailureListener {
+                log(it.message)
+            }
+            .await()
     }
 
     override suspend fun getUserById(id: String): User? {

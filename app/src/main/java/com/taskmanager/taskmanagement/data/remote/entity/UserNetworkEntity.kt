@@ -6,4 +6,6 @@ data class UserNetworkEntity(
     val username: String,
     val email: String,
     val photo: String
-)
+){
+    constructor(): this("", "", "", "", "")
+}

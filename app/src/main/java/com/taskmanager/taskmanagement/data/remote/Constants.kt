@@ -7,4 +7,7 @@ object Constants {
 
     const val PROJECTS_COLLECTION = "Projects"
     const val USERS_COLLECTION = "Users"
+
+    const val SIGN_UP_FAILED = "Sign up failed"
+    const val SIGN_IN_FAILED = "Sign in failed"
 }

@@ -1,5 +1,6 @@
 package com.taskmanager.taskmanagement.data.remote
 
+import androidx.lifecycle.LiveData
 import com.taskmanager.taskmanagement.domain.model.User
 
 interface UserRemoteDataSource {
@@ -8,14 +9,16 @@ interface UserRemoteDataSource {
         username: String,
         email: String,
         password: String
-    )
+    ): LiveData<NetworkResult<User>>
 
     suspend fun signInUser(
         email: String,
         password: String
-    )
+    ): LiveData<NetworkResult<User>>
 
     suspend fun signOutUser()
+
+    suspend fun updateProfile(user: User)
 
     suspend fun getUserById(id: String): User?
 
