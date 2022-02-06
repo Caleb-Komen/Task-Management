@@ -8,7 +8,7 @@ import com.taskmanager.taskmanagement.domain.model.User
 interface ProjectRemoteDataSource {
     suspend fun getAllProjects(): List<Project>
 
-    suspend fun getProject(projectId: String): Project
+    suspend fun getProject(projectId: String): Project?
 
     suspend fun getAssignedMembers(membersId: List<String>): List<User>
 
