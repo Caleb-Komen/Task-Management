@@ -7,7 +7,7 @@ import com.taskmanager.taskmanagement.domain.model.TaskList
 interface ProjectLocalDataSource {
     fun getAllProjects(): List<Project>
 
-    fun getProject(projectId: String): Project
+    fun getProject(projectId: String): Project?
 
     fun searchProjects(name: String): List<Project>
 

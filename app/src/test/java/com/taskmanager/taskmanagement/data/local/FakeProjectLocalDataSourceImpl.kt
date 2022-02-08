@@ -13,28 +13,30 @@ const val FORCE_GET_PROJECT_EXCEPTION = "FORCE_GET_PROJECT_EXCEPTION"
 const val FORCE_NEW_TASKLIST_EXCEPTION = "FORCE_GET_PROJECT_EXCEPTION"
 const val FORCE_UPDATE_TASKLIST_EXCEPTION = "FORCE_UPDATE_TASKLIST_EXCEPTION"
 
-class FakeProjectLocalDataSource(
+class FakeProjectLocalDataSourceImpl(
     private val projectsData: HashMap<String, Project>
 ): ProjectLocalDataSource {
     override fun getAllProjects(): List<Project> {
         return ArrayList(projectsData.values)
     }
 
-    override fun getProject(projectId: String): Project {
+    override fun getProject(projectId: String): Project? {
         if (projectId == FORCE_GET_PROJECT_EXCEPTION){
             throw Exception("Unable to retrieve data")
         }
-        return projectsData[projectId] ?: emptyProject()
+        return projectsData[projectId]
     }
 
     override fun searchProjects(name: String): List<Project> {
         if (name == FORCE_SEARCH_PROJECTS_EXCEPTION){
             throw Exception("Invalid search query")
         }
-        val projects = ArrayList<Project>()
+        var projects = ArrayList<Project>()
         for (project in projectsData.values){
-            if (project.name == name){
+            if (project.name.contains(name, ignoreCase = true)){
                 projects.add(project)
+            } else if (project.name == ""){
+                projects = ArrayList(getAllProjects())
             }
         }
         return projects
@@ -82,8 +84,8 @@ class FakeProjectLocalDataSource(
             return -1
         }
         val project = getProject(projectId)
-        project.taskLists.toMutableList().add(taskList)
-        updateProject(project)
+        project?.taskLists?.toMutableList()?.add(taskList)
+        updateProject(project!!)
         return 1
     }
 
@@ -98,7 +100,7 @@ class FakeProjectLocalDataSource(
         val project = getProject(projectId)
         var updatedTaskList = emptyTaskList()
         var index = 0
-        project.taskLists.let {
+        project?.taskLists?.let {
             for (list in it){
                 if (list.id == taskList.id){
                     updatedTaskList = TaskList(
@@ -112,11 +114,11 @@ class FakeProjectLocalDataSource(
                 }
             }
         }
-        project.taskLists.toMutableList().also {
+        project?.taskLists?.toMutableList()?.also {
             it.removeAt(index)
             it.add(index, updatedTaskList)
         }
-        updateProject(project)
+        updateProject(project!!)
         return 1
     }
 
