@@ -246,18 +246,6 @@ class FakeProjectLocalDataSourceImpl(
         return successFailure
     }
 
-    override suspend fun deleteAllTasks(): Int {
-        for (project in projectsData.values) {
-            val taskLists = ArrayList<TaskList>()
-            project.taskLists.forEach { taskList ->
-                taskList.tasks.toMutableList().clear()
-                taskLists.add(taskList)
-            }
-            project.taskLists = taskLists
-            projectsData[project.id] = project
-        }
-        return 1
-    }
 
     override suspend fun deleteTask(id: String): Int {
         var project: Project? = null
