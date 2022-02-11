@@ -12,7 +12,5 @@ interface TasksRepository {
 
     suspend fun updateTask(task: Task, taskListId: String, projectId: String)
 
-    suspend fun deleteAllTasks(projectId: String)
-
     suspend fun deleteTask(id: String, projectId: String)
 }
