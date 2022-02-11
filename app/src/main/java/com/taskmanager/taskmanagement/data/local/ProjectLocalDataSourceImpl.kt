@@ -78,7 +78,6 @@ class ProjectLocalDataSourceImpl(
         return taskDao.updateTask(task.toEntity(taskListId))
     }
 
-
     override suspend fun deleteTask(id: String): Int {
         return taskDao.deleteTask(id)
     }
