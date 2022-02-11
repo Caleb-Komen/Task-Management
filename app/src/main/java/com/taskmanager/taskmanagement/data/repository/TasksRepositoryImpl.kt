@@ -64,22 +64,6 @@ class TasksRepositoryImpl(
         }.getResult()
     }
 
-    override suspend fun deleteAllTasks(projectId: String) {
-        val result = safeCacheCall(IO){
-            projectLocalDataSource.deleteAllTasks()
-        }
-        object : CacheResponseHandler<Int>(result) {
-            override suspend fun handleSuccess(data: Int): Resource<Int>? {
-                return if (data > 0){
-                    projectResponse(projectId).invoke()
-                    null
-                } else {
-                    null
-                }
-            }
-        }.getResult()
-    }
-
     override suspend fun deleteTask(id: String, projectId: String) {
         val result = safeCacheCall(IO){
             projectLocalDataSource.deleteTask(id)

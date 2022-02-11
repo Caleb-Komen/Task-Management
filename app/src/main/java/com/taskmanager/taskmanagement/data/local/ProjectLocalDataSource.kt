@@ -33,7 +33,5 @@ interface ProjectLocalDataSource {
 
     suspend fun updateTask(task: Task, taskListId: String): Int
 
-    suspend fun deleteAllTasks(): Int
-
     suspend fun deleteTask(id: String): Int
 }
