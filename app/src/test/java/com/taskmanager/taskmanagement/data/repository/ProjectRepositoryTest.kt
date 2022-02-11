@@ -46,7 +46,9 @@ class ProjectRepositoryTest {
     }
 
     init {
-        projectLocalDataSource = FakeProjectLocalDataSourceImpl(produceHashMapOfProjects(listOf(project1, project2)))
+        projectLocalDataSource = FakeProjectLocalDataSourceImpl(
+            produceHashMapOfProjects(listOf(project1, project2))
+        )
         projectRemoteDataSource = FakeProjectRemoteDataSourceImpl(
             produceHashMapOfProjects(listOf(project1, project2)),
             produceHashMapOfUsers(listOf(user1, user2))
@@ -70,7 +72,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    fun getProject_fail_noResult() = runBlocking{
+    fun getProject_throwException_noResult() = runBlocking{
         val id = FORCE_GET_PROJECT_EXCEPTION
         var project: Project? = null
         projectRepository.getProject(id).collect{ resource ->
@@ -191,7 +193,7 @@ class ProjectRepositoryTest {
         assertTrue { projectInCache == project }
 
         // confirm project was updated in network
-        val projectInNetwork = projectLocalDataSource.getProject(project.id)
+        val projectInNetwork = projectRemoteDataSource.getProject(project.id)
         assertTrue { projectInNetwork == project }
     }
 
@@ -211,7 +213,7 @@ class ProjectRepositoryTest {
         assertTrue { projectInCache != project }
 
         // confirm project was not updated in network
-        val projectInNetwork = projectLocalDataSource.getProject(project.id)
+        val projectInNetwork = projectRemoteDataSource.getProject(project.id)
         assertTrue { projectInNetwork != project }
     }
 
@@ -230,7 +232,7 @@ class ProjectRepositoryTest {
         assertTrue { projectInCache != project }
 
         // confirm project was not updated in network
-        val projectInNetwork = projectLocalDataSource.getProject(project.id)
+        val projectInNetwork = projectRemoteDataSource.getProject(project.id)
         assertTrue { projectInNetwork != project }
     }
 

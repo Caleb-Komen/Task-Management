@@ -22,7 +22,7 @@ class TaskListRepositoryImpl(
         object : CacheResponseHandler<Long>(result){
             override suspend fun handleSuccess(data: Long): Resource<Long>? {
                 return if (data > 0){
-                    projectResponse(projectId)
+                    projectResponse(projectId).invoke()
                     null
                 } else {
                     null
