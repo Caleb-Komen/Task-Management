@@ -11,8 +11,11 @@ import com.taskmanager.taskmanagement.data.util.log
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.User
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ProjectRemoteSourceImpl(
+@Singleton
+class ProjectRemoteSourceImpl @Inject constructor(
     private val firestore: FirebaseFirestore
 ): ProjectRemoteDataSource {
     override suspend fun getAllProjects(): List<Project> {

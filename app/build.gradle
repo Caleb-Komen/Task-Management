@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -49,15 +50,14 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2'
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0-native-mt'
 
     def roomVersion = "2.4.1"
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation("androidx.room:room-ktx:$roomVersion")
 
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.9.0'
 
     implementation platform('com.google.firebase:firebase-bom:29.0.4')
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -65,10 +65,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
 
+    implementation "com.google.dagger:hilt-android:2.40.5"
+    kapt "com.google.dagger:hilt-compiler:2.40.5"
+
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
     // support junit4 tests in junit 5 environment
     testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
 
+}
+
+kapt {
+    correctErrorTypes = true
 }

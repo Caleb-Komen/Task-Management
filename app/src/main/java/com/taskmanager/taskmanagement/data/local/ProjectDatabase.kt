@@ -18,4 +18,8 @@ abstract class ProjectDatabase: RoomDatabase() {
     abstract fun taskListDao(): TaskListDao
 
     abstract fun taskDao(): TaskDao
+
+    companion object{
+        const val DATABASE_NAME = "projects_db"
+    }
 }

@@ -5,8 +5,11 @@ import com.taskmanager.taskmanagement.data.remote.NetworkResult
 import com.taskmanager.taskmanagement.data.remote.UserRemoteDataSource
 import com.taskmanager.taskmanagement.domain.model.User
 import com.taskmanager.taskmanagement.domain.repository.UserRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserRepositoryImpl(
+@Singleton
+class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource
 ): UserRepository {
     override suspend fun signUpUser(

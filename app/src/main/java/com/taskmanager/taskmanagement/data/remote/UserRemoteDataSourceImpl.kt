@@ -15,8 +15,11 @@ import com.taskmanager.taskmanagement.data.remote.mapper.toEntity
 import com.taskmanager.taskmanagement.data.util.log
 import com.taskmanager.taskmanagement.domain.model.User
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserRemoteDataSourceImpl(
+@Singleton
+class UserRemoteDataSourceImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
 ): UserRemoteDataSource {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()

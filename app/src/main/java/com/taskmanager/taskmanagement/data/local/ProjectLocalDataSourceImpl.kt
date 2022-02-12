@@ -8,8 +8,11 @@ import com.taskmanager.taskmanagement.data.local.mapper.toEntity
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.Task
 import com.taskmanager.taskmanagement.domain.model.TaskList
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ProjectLocalDataSourceImpl(
+@Singleton
+class ProjectLocalDataSourceImpl @Inject constructor(
     private val projectDao: ProjectDao,
     private val taskListDao: TaskListDao,
     private val taskDao: TaskDao

@@ -10,8 +10,11 @@ import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.repository.TaskListRepository
 import kotlinx.coroutines.Dispatchers.IO
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TaskListRepositoryImpl(
+@Singleton
+class TaskListRepositoryImpl @Inject constructor(
     private val projectLocalDataSource: ProjectLocalDataSource,
     private val projectRemoteDataSource: ProjectRemoteDataSource
 ): TaskListRepository {

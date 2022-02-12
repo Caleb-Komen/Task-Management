@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import com.taskmanager.taskmanagement.data.remote.NetworkResult
 import com.taskmanager.taskmanagement.domain.model.User
 import com.taskmanager.taskmanagement.domain.repository.UserRepository
+import javax.inject.Inject
 
-class SignInUseCase(
+class SignInUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
     suspend operator fun invoke(
