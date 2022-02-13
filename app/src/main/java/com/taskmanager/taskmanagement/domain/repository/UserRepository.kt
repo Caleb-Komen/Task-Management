@@ -18,4 +18,16 @@ interface UserRepository {
     ): LiveData<NetworkResult<User>>
 
     suspend fun signOutUser()
+
+    suspend fun updateProfile(user: User)
+
+    suspend fun getUserById(id: String): User?
+
+    fun getUser(id: String): User?
+
+    suspend fun getUserByName(name: String): List<User?>
+
+    suspend fun updateUser(user: User)
+
+    suspend fun deleteUser(id: String)
 }

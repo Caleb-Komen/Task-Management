@@ -30,4 +30,28 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun signOutUser() {
         userRemoteDataSource.signOutUser()
     }
+
+    override suspend fun updateProfile(user: User) {
+        userRemoteDataSource.updateUser(user)
+    }
+
+    override suspend fun getUserById(id: String): User? {
+        return userRemoteDataSource.getUserById(id)
+    }
+
+    override fun getUser(id: String): User? {
+        return userRemoteDataSource.getUser(id)
+    }
+
+    override suspend fun getUserByName(name: String): List<User?> {
+        return userRemoteDataSource.getUserByName(name)
+    }
+
+    override suspend fun updateUser(user: User) {
+        userRemoteDataSource.updateUser(user)
+    }
+
+    override suspend fun deleteUser(id: String) {
+        userRemoteDataSource.deleteUser(id)
+    }
 }
