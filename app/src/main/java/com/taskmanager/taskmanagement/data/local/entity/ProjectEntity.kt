@@ -16,5 +16,5 @@ data class ProjectEntity(
     val name: String,
 
     @ColumnInfo(name = "members")
-    val members: List<User> = emptyList()
+    val members: List<UserLocalEntity> = emptyList()
 )

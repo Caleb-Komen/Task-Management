@@ -4,6 +4,7 @@ import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.Task
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.data.local.entity.*
+import com.taskmanager.taskmanagement.domain.model.User
 
 fun Task.toEntity(taskListId: String): TaskEntity {
     return TaskEntity(
@@ -11,7 +12,7 @@ fun Task.toEntity(taskListId: String): TaskEntity {
         title = title,
         description = description,
         label = label,
-        assignedTo = assignedTo,
+        assignedTo = assignedTo.map { it.toEntity() },
         dueDate = dueDate,
         taskListId = taskListId
     )
@@ -23,7 +24,7 @@ fun TaskEntity.toDomain(): Task{
         title = title,
         description = description,
         label = label,
-        assignedTo = assignedTo,
+        assignedTo = assignedTo.map { it.toDomain() },
         dueDate = dueDate
     )
 }
@@ -58,7 +59,7 @@ fun Project.toEntity(): ProjectEntity {
     return ProjectEntity(
         id = id,
         name = name,
-        members = members
+        members = members.map { it.toEntity() }
     )
 }
 
@@ -67,7 +68,7 @@ fun ProjectWithTaskListsAndTasks.toDomain(): Project{
         id = projectEntity.id,
         name = projectEntity.name,
         taskLists = taskListEntities.map { it.toDomain() },
-        members = projectEntity.members
+        members = projectEntity.members.map{ it.toDomain() }
     )
 }
 
@@ -75,6 +76,26 @@ fun ProjectEntity.toDomain(): Project{
     return Project(
         id = id,
         name = name,
-        members = members
+        members = members.map { it.toDomain() }
+    )
+}
+
+fun User.toEntity(): UserLocalEntity{
+    return UserLocalEntity(
+        id = id,
+        name = name,
+        username = username,
+        email = email,
+        photo = photo
+    )
+}
+
+fun UserLocalEntity.toDomain(): User{
+    return User(
+        id = id,
+        name = name,
+        username = username,
+        email = email,
+        photo = photo
     )
 }

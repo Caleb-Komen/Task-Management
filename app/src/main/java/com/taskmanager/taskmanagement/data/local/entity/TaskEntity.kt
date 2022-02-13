@@ -22,7 +22,7 @@ data class TaskEntity(
     val label: String,
 
     @ColumnInfo(name = "assigned_to")
-    val assignedTo: List<User>,
+    val assignedTo: List<UserLocalEntity>,
 
     @ColumnInfo(name = "due_date")
     val dueDate: String,
