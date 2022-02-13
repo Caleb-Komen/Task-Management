@@ -19,8 +19,6 @@ interface UserRepository {
 
     suspend fun signOutUser()
 
-    suspend fun updateProfile(user: User)
-
     suspend fun getUserById(id: String): User?
 
     fun getUser(id: String): User?

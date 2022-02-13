@@ -46,7 +46,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
                     photo = ""
                 )
                 val user = userEntity.toDomain()
-                updateProfile(user)
+                saveUser(userEntity)
                 result.value = NetworkResult.Success(user)
             }
         return result
@@ -70,22 +70,6 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun signOutUser() {
         firebaseAuth.signOut()
-    }
-
-    override suspend fun updateProfile(user: User){
-        val firebaseUser = firebaseAuth.currentUser!!
-        val profileUpdates = userProfileChangeRequest {
-            displayName = user.name
-            photoUri = Uri.parse(user.photo)
-        }
-        firebaseUser.updateProfile(profileUpdates)
-            .addOnFailureListener {
-                log(it.message)
-            }
-            .await()
-            .also {
-                saveUser(user.toEntity())
-            }
     }
 
     private suspend fun saveUser(user: UserNetworkEntity) {

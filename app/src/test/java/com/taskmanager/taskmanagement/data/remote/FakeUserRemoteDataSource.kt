@@ -27,10 +27,6 @@ class FakeUserRemoteDataSource(
         // no op
     }
 
-    override suspend fun updateProfile(user: User) {
-        // no op
-    }
-
     override suspend fun getUserById(id: String): User? {
         return usersData[id]
     }
