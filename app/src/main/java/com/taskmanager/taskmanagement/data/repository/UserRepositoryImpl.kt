@@ -32,7 +32,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateProfile(user: User) {
-        userRemoteDataSource.updateUser(user)
+        userRemoteDataSource.updateProfile(user)
     }
 
     override suspend fun getUserById(id: String): User? {
