@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -16,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.taskmanager.taskmanagement.data.ProjectTestRunner"
     }
 
     buildTypes {
@@ -73,6 +74,8 @@ dependencies {
     // support junit4 tests in junit 5 environment
     testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.38.1'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.38.1'
 
 }
 
