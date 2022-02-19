@@ -38,14 +38,6 @@ fun TaskList.toEntity(projectId: String): TaskListEntity {
     )
 }
 
-fun TaskListEntity.toDomain(): TaskList{
-    return TaskList(
-        id = id,
-        title = title,
-        tag = tag
-    )
-}
-
 fun TaskListWithTasks.toDomain(): TaskList{
     return TaskList(
         id = taskListEntity.id,
@@ -69,14 +61,6 @@ fun ProjectWithTaskListsAndTasks.toDomain(): Project{
         name = projectEntity.name,
         taskLists = taskListEntities.map { it.toDomain() },
         members = projectEntity.members.map{ it.toDomain() }
-    )
-}
-
-fun ProjectEntity.toDomain(): Project{
-    return Project(
-        id = id,
-        name = name,
-        members = members.map { it.toDomain() }
     )
 }
 

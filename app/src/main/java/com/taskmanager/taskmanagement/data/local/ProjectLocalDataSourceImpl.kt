@@ -19,7 +19,7 @@ class ProjectLocalDataSourceImpl @Inject constructor(
 ): ProjectLocalDataSource {
     override fun getAllProjects(): List<Project> {
         return projectDao.getAllProjects().map {
-            it.projectEntity.toDomain()
+            it.toDomain()
         }
     }
 
@@ -29,7 +29,7 @@ class ProjectLocalDataSourceImpl @Inject constructor(
 
     override fun searchProjects(name: String): List<Project> {
         return projectDao.searchProjects(name).map {
-            it.projectEntity.toDomain()
+            it.toDomain()
         }
     }
 
