@@ -20,16 +20,6 @@ import javax.inject.Singleton
 object RoomModule {
     @Singleton
     @Provides
-    fun provideProjectDatabase(
-        @ApplicationContext context: Context
-    ): ProjectDatabase {
-        return Room.databaseBuilder(context, ProjectDatabase::class.java, ProjectDatabase.DATABASE_NAME)
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-
-    @Singleton
-    @Provides
     fun provideProjectDao(database: ProjectDatabase): ProjectDao {
         return database.projectDao()
     }

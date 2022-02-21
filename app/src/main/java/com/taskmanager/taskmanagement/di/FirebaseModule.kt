@@ -1,5 +1,6 @@
 package com.taskmanager.taskmanagement.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.taskmanager.taskmanagement.data.remote.ProjectRemoteDataSource
 import com.taskmanager.taskmanagement.data.remote.ProjectRemoteSourceImpl
@@ -16,12 +17,6 @@ import javax.inject.Singleton
 object FirebaseModule {
     @Singleton
     @Provides
-    fun provideFirebaseFirestore(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
-    }
-
-    @Singleton
-    @Provides
     fun provideProjectRemoteDataSource(
         firestore: FirebaseFirestore
     ): ProjectRemoteDataSource {
@@ -31,8 +26,9 @@ object FirebaseModule {
     @Singleton
     @Provides
     fun provideUserRemoteDataSource(
-        firestore: FirebaseFirestore
+        firestore: FirebaseFirestore,
+        firebaseAuth: FirebaseAuth
     ): UserRemoteDataSource {
-        return UserRemoteDataSourceImpl(firestore)
+        return UserRemoteDataSourceImpl(firestore, firebaseAuth)
     }
 }
