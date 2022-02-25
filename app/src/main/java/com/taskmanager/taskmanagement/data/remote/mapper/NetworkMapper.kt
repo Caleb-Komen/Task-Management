@@ -43,7 +43,7 @@ fun Task.toEntity(): TaskNetworkEntity{
 }
 
 fun TaskNetworkEntity.toDomain(firestore: FirebaseFirestore): Task{
-    val source = UserRemoteDataSourceImpl(firestore)
+    val source = UserRemoteDataSourceImpl(firestore, null)
     val users = assignedTo.map { id ->
         source.getUser(id)
     }
@@ -86,7 +86,7 @@ fun Project.toEntity(): ProjectNetworkEntity{
 }
 
 fun ProjectNetworkEntity.toDomain(firestore: FirebaseFirestore): Project{
-    val source = UserRemoteDataSourceImpl(firestore)
+    val source = UserRemoteDataSourceImpl(firestore, null)
     return Project(
         id = id,
         name = name,

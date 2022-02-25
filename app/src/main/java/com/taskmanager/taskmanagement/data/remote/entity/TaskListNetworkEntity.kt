@@ -5,4 +5,6 @@ data class TaskListNetworkEntity(
     val title: String,
     val tasks: List<TaskNetworkEntity>,
     val tag: String
-)
+){
+    constructor() : this("", "", emptyList(), "")
+}

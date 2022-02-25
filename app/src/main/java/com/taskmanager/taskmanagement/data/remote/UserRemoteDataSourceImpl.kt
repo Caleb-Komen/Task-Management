@@ -3,6 +3,7 @@ package com.taskmanager.taskmanagement.data.remote
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,17 +22,17 @@ import javax.inject.Singleton
 @Singleton
 class UserRemoteDataSourceImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
+    private val firebaseAuth: FirebaseAuth?
 ): UserRemoteDataSource {
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    override suspend fun signUpUser(
+    override fun signUpUser(
         name: String,
         username: String,
         email: String,
         password: String
-    ): LiveData<NetworkResult<User>> {
+    ): LiveData<NetworkResult<User>> = liveData{
         val result = MutableLiveData<NetworkResult<User>>()
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        firebaseAuth!!.createUserWithEmailAndPassword(email, password)
             .addOnFailureListener {
                 result.value = NetworkResult.GenericError(null, SIGN_UP_FAILED)
                 log(it.message)
@@ -49,12 +50,12 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 saveUser(userEntity)
                 result.value = NetworkResult.Success(user)
             }
-        return result
+        emit(result.value!!)
     }
 
-    override suspend fun signInUser(email: String, password: String): LiveData<NetworkResult<User>> {
+    override fun signInUser(email: String, password: String): LiveData<NetworkResult<User>> = liveData{
         val result = MutableLiveData<NetworkResult<User>>()
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        firebaseAuth!!.signInWithEmailAndPassword(email, password)
             .addOnFailureListener {
                 result.value = NetworkResult.GenericError(null, SIGN_IN_FAILED)
                 log(it.message)
@@ -65,11 +66,11 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 val user = getUserById(firebaseUser.uid)!!
                 result.value = NetworkResult.Success(user)
             }
-        return result
+        emit(result.value!!)
     }
 
     override suspend fun signOutUser() {
-        firebaseAuth.signOut()
+        firebaseAuth!!.signOut()
     }
 
     private suspend fun saveUser(user: UserNetworkEntity) {

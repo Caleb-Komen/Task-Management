@@ -7,4 +7,6 @@ data class TaskNetworkEntity(
     val label: String,
     val assignedTo: List<String>,
     val dueDate: String
-)
+){
+    constructor(): this("", "", "", "", emptyList(), "")
+}

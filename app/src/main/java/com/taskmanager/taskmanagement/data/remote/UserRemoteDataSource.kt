@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import com.taskmanager.taskmanagement.domain.model.User
 
 interface UserRemoteDataSource {
-    suspend fun signUpUser(
+    fun signUpUser(
         name: String,
         username: String,
         email: String,
         password: String
     ): LiveData<NetworkResult<User>>
 
-    suspend fun signInUser(
+    fun signInUser(
         email: String,
         password: String
     ): LiveData<NetworkResult<User>>
