@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Task Management</string>
+
+    <string name="manage_projects">Manage Projects</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="empty_field_error">Field cannot be empty</string>
+    <string name="email_error">Enter a valid email</string>
+    <string name="password_length_error">Password must have at least 5 characters</string>
+    <string name="password_error">Password do not match</string>
+    <string name="connection_error">No internet connection</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

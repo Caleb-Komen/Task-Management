@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource
 ): UserRepository {
-    override suspend fun signUpUser(
+    override fun signUpUser(
         name: String,
         username: String,
         email: String,
@@ -23,7 +23,7 @@ class UserRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun signInUser(email: String, password: String): LiveData<NetworkResult<User>> {
+    override fun signInUser(email: String, password: String): LiveData<NetworkResult<User>> {
         return userRemoteDataSource.signInUser(email, password)
     }
 

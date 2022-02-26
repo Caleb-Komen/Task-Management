@@ -1,5 +1,6 @@
 package com.taskmanager.taskmanagement.di
 
+/*
 import com.taskmanager.taskmanagement.domain.repository.ProjectRepository
 import com.taskmanager.taskmanagement.domain.repository.TaskListRepository
 import com.taskmanager.taskmanagement.domain.repository.TasksRepository
@@ -109,4 +110,4 @@ object UseCaseModule {
     fun provideUpdateTaskUseCase(repository: TasksRepository): UpdateTaskUseCase{
         return UpdateTaskUseCase(repository)
     }
-}
+}*/
