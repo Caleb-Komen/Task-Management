@@ -15,7 +15,7 @@
         <action
             android:id="@+id/action_signInFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
-            app:popUpTo="@id/dashboardFragment"
+            app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
@@ -26,7 +26,7 @@
         <action
             android:id="@+id/action_signUpFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
-            app:popUpTo="@id/dashboardFragment"
+            app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -36,10 +36,8 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
-        <argument
-            android:name="name"
-            app:argType="string"
-            app:nullable="true" />
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

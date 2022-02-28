@@ -1,5 +1,7 @@
 package com.taskmanager.taskmanagement.ui.auth
 
+import android.text.TextUtils
+import androidx.core.text.TextUtilsCompat
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +23,9 @@ class AuthViewModel @Inject constructor(
     private val _signupFormState = MutableLiveData<SignUpFormState>()
     val signupFormState: LiveData<SignUpFormState> get() = _signupFormState
 
+    private val _signInFormState = MutableLiveData<SignInFormState>()
+    val signInFormState: LiveData<SignInFormState> get() = _signInFormState
+
     fun signUp(
         name: String,
         username: String,
@@ -28,6 +33,13 @@ class AuthViewModel @Inject constructor(
         password: String
     ): LiveData<NetworkResult<User>>{
         return signUpUseCase(name, username, email, password)
+    }
+
+    fun signIn(
+        email: String,
+        password: String
+    ): LiveData<NetworkResult<User>>{
+        return signInUseCase(email, password)
     }
 
     fun signUpDataChange(
@@ -49,6 +61,25 @@ class AuthViewModel @Inject constructor(
             _signupFormState.value = SignUpFormState(passwordMatchError = R.string.password_error)
         } else{
             _signupFormState.value = SignUpFormState(isDataValid = true)
+        }
+    }
+
+    fun validateSignInForm(
+        email: String,
+        password: String
+    ): Boolean{
+        return when {
+            TextUtils.isEmpty(email) -> {
+                _signInFormState.value = SignInFormState(emailError = R.string.empty_field_error)
+                false
+            }
+            TextUtils.isEmpty(password) -> {
+                _signInFormState.value = SignInFormState(passwordError = R.string.empty_field_error)
+                false
+            }
+            else -> {
+                true
+            }
         }
     }
 

@@ -1,26 +1,23 @@
 package com.taskmanager.taskmanagement.ui.dashboard
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.FirebaseAuth
 import com.taskmanager.taskmanagement.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
-//    private val args: DashboardFragmentArgs by navArgs()
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        val name = args.name
-//        if (name != null){
-//            showToast(name)
-//        }
-//    }
+    private val viewModel: DashboardViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +27,23 @@ class DashboardFragment : Fragment() {
         if (user == null){
             navigateToLogin()
         }
-        // Inflate the layout for this fragment
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dashboard_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.action_sign_out -> {
+                viewModel.signOut()
+                navigateToLogin()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun navigateToLogin() {
@@ -39,8 +51,7 @@ class DashboardFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    // TODO ---> create view extensions for toast and snackbars
-    private fun showToast(name: String) {
+    fun displayToast(name: String){
         Toast.makeText(requireContext(), "Welcome $name", Toast.LENGTH_SHORT).show()
     }
 

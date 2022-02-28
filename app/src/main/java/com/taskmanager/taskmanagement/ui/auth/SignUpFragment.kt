@@ -102,7 +102,7 @@ class SignUpFragment : Fragment() {
                             val result = it ?: return@observe
                             when (result){
                                 is NetworkResult.Success -> {
-                                    navigateToDashboard(result.data.name)
+                                    navigateToDashboard()
                                 }
                                 is NetworkResult.GenericError -> {
                                     showSnackbar(result.message!!)
@@ -127,7 +127,7 @@ class SignUpFragment : Fragment() {
                     val result = it ?: return@observe
                     when (result){
                         is NetworkResult.Success -> {
-                            navigateToDashboard(result.data.name)
+                            navigateToDashboard()
                         }
                         is NetworkResult.GenericError -> {
                             showSnackbar(result.message!!)
@@ -141,8 +141,8 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun navigateToDashboard(name: String?){
-        val action = SignUpFragmentDirections.actionSignUpFragmentToDashboardFragment(name)
+    private fun navigateToDashboard(){
+        val action = SignUpFragmentDirections.actionSignUpFragmentToDashboardFragment()
         findNavController().navigate(action)
     }
 
