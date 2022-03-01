@@ -26,6 +26,9 @@ class AuthViewModel @Inject constructor(
     private val _signInFormState = MutableLiveData<SignInFormState>()
     val signInFormState: LiveData<SignInFormState> get() = _signInFormState
 
+    private val _startMainActivityEvent = MutableLiveData<Unit>()
+    val startMainActivityEvent: LiveData<Unit> get() = _startMainActivityEvent
+
     fun signUp(
         name: String,
         username: String,

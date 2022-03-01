@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.FirebaseAuth
 import com.taskmanager.taskmanagement.R
+import com.taskmanager.taskmanagement.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,8 +48,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun navigateToLogin() {
-        val action = DashboardFragmentDirections.actionDashboardFragmentToSignInFragment()
-        findNavController().navigate(action)
+        (requireActivity() as MainActivity).navigateToAuthActivity()
     }
 
     fun displayToast(name: String){

@@ -82,8 +82,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun navigateToDashboard(){
-        val action = SignInFragmentDirections.actionSignInFragmentToDashboardFragment()
-        findNavController().navigate(action)
+        (requireActivity() as AuthActivity).navigateToMainActivity()
     }
 
     // TODO ---> create view extensions for toast and snackbars
