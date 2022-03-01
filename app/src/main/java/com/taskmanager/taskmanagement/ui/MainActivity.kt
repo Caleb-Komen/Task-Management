@@ -3,18 +3,12 @@ package com.taskmanager.taskmanagement.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.databinding.ActivityMainBinding
 import com.taskmanager.taskmanagement.ui.auth.AuthActivity
-import com.taskmanager.taskmanagement.ui.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

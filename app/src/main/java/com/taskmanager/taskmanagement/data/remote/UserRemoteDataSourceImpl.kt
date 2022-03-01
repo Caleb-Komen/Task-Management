@@ -1,11 +1,9 @@
 package com.taskmanager.taskmanagement.data.remote
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.taskmanager.taskmanagement.data.remote.Constants.SIGN_IN_FAILED
 import com.taskmanager.taskmanagement.data.remote.Constants.SIGN_UP_FAILED

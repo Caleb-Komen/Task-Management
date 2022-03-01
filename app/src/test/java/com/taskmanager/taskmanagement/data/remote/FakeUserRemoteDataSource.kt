@@ -7,7 +7,7 @@ import com.taskmanager.taskmanagement.util.AbsentLiveData
 class FakeUserRemoteDataSource(
     private val usersData: HashMap<String, User>
 ): UserRemoteDataSource {
-    override suspend fun signUpUser(
+    override fun signUpUser(
         name: String,
         username: String,
         email: String,
@@ -16,7 +16,7 @@ class FakeUserRemoteDataSource(
         return AbsentLiveData.create()
     }
 
-    override suspend fun signInUser(
+    override fun signInUser(
         email: String,
         password: String
     ): LiveData<NetworkResult<User>> {

@@ -1,7 +1,5 @@
 package com.taskmanager.taskmanagement.di
 
-import android.content.Context
-import androidx.room.Room
 import com.taskmanager.taskmanagement.data.local.ProjectDatabase
 import com.taskmanager.taskmanagement.data.local.ProjectLocalDataSource
 import com.taskmanager.taskmanagement.data.local.ProjectLocalDataSourceImpl
@@ -11,7 +9,6 @@ import com.taskmanager.taskmanagement.data.local.dao.TaskListDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 

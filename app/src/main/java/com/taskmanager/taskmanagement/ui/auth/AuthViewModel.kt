@@ -1,7 +1,6 @@
 package com.taskmanager.taskmanagement.ui.auth
 
 import android.text.TextUtils
-import androidx.core.text.TextUtilsCompat
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

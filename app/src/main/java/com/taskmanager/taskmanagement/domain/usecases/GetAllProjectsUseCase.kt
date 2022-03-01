@@ -1,6 +1,5 @@
 package com.taskmanager.taskmanagement.domain.usecases
 
-import com.taskmanager.taskmanagement.data.local.CacheResult
 import com.taskmanager.taskmanagement.data.util.Resource
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.repository.ProjectRepository

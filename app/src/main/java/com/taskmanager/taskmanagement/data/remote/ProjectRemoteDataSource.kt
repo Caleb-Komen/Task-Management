@@ -1,8 +1,6 @@
 package com.taskmanager.taskmanagement.data.remote
 
 import com.taskmanager.taskmanagement.domain.model.Project
-import com.taskmanager.taskmanagement.domain.model.Task
-import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.domain.model.User
 
 interface ProjectRemoteDataSource {

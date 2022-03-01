@@ -1,6 +1,5 @@
 package com.taskmanager.taskmanagement.domain.usecases
 
-import com.taskmanager.taskmanagement.domain.model.User
 import com.taskmanager.taskmanagement.domain.repository.UserRepository
 import javax.inject.Inject
 

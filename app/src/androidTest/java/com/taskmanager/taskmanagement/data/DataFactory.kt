@@ -5,9 +5,6 @@ import android.content.res.AssetManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.taskmanager.taskmanagement.domain.model.Project
-import com.taskmanager.taskmanagement.domain.model.Task
-import com.taskmanager.taskmanagement.domain.model.TaskList
-import com.taskmanager.taskmanagement.domain.model.User
 import javax.inject.Inject
 import javax.inject.Singleton
 

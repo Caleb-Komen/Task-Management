@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.data.remote.NetworkResult
@@ -19,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
-    private val viewModel: AuthViewModel by viewModels()
+    private val viewModel: AuthViewModel by activityViewModels()
 
     private var _binding: FragmentSignUpBinding? = null
     val binding get() = _binding!!
@@ -29,7 +28,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
+
         return binding.root
     }
 
@@ -118,7 +117,6 @@ class SignUpFragment : Fragment() {
             }
 
             binding.btnSignUp.setOnClickListener {
-//                binding.progressBar.visibility = View.VISIBLE
                 viewModel.signUp(
                     binding.etName.text.toString(), binding.etUsername.text.toString(),
                     binding.etEmail.text.toString(), binding.etPassword.text.toString()
