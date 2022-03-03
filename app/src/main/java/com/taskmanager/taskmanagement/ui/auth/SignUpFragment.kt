@@ -36,7 +36,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.signupFormState.observe(viewLifecycleOwner){
             val signUpFormState = it ?: return@observe
-            binding.btnSignUp.isEnabled = signUpFormState.isDataValid
+
             if (signUpFormState.nameError != null){
                 binding.etName.error = getString(signUpFormState.nameError)
             }
@@ -58,82 +58,42 @@ class SignUpFragment : Fragment() {
             }
         }
 
-        binding.etName.afterTextChanged {
-            viewModel.signUpDataChange(
-                binding.etName.text.toString(), binding.etUsername.text.toString(),
-                binding.etEmail.text.toString(), binding.etPassword.text.toString(), binding.etConfirmPassword.toString()
-            )
-        }
-        binding.etUsername.afterTextChanged {
-            viewModel.signUpDataChange(
-                binding.etName.text.toString(), binding.etUsername.text.toString(),
-                binding.etEmail.text.toString(), binding.etPassword.text.toString(), binding.etConfirmPassword.toString()
-            )
-        }
-        binding.etEmail.afterTextChanged {
-            viewModel.signUpDataChange(
-                binding.etName.text.toString(), binding.etUsername.text.toString(),
-                binding.etEmail.text.toString(), binding.etPassword.text.toString(), binding.etConfirmPassword.toString()
-            )
-        }
-        binding.etPassword.afterTextChanged {
-            viewModel.signUpDataChange(
-                binding.etName.text.toString(), binding.etUsername.text.toString(),
-                binding.etEmail.text.toString(), binding.etPassword.text.toString(), binding.etConfirmPassword.toString()
-            )
-        }
-        binding.etConfirmPassword.apply {
-            afterTextChanged {
-                viewModel.signUpDataChange(
-                    binding.etName.text.toString(), binding.etUsername.text.toString(),
-                    binding.etEmail.text.toString(), binding.etPassword.text.toString(), binding.etConfirmPassword.toString()
-                )
-            }
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId){
-                    EditorInfo.IME_ACTION_DONE -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                        viewModel.signUp(
-                            binding.etName.text.toString(), binding.etUsername.text.toString(),
-                            binding.etEmail.text.toString(), binding.etPassword.text.toString()
-                        ).observe(viewLifecycleOwner){
-                            binding.progressBar.visibility = View.GONE
-                            val result = it ?: return@observe
-                            when (result){
-                                is NetworkResult.Success -> {
-                                    navigateToDashboard()
-                                }
-                                is NetworkResult.GenericError -> {
-                                    showSnackbar(result.message!!)
-                                }
-                                is NetworkResult.NetworkError -> {
-                                    showSnackbar(getString(R.string.connection_error))
-                                }
-                            }
-                        }
-                    }
-                }
-                false
-            }
+        binding.btnSignUp.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            val name = binding.etName.text.toString().trim()
+            val username = binding.etUsername.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
+            val confirmPassword = binding.etConfirmPassword.text.toString().trim()
 
-            binding.btnSignUp.setOnClickListener {
-                viewModel.signUp(
-                    binding.etName.text.toString(), binding.etUsername.text.toString(),
-                    binding.etEmail.text.toString(), binding.etPassword.text.toString()
-                ).observe(viewLifecycleOwner){
-                    binding.progressBar.visibility = View.GONE
-                    val result = it ?: return@observe
-                    when (result){
-                        is NetworkResult.Success -> {
-                            navigateToDashboard()
-                        }
-                        is NetworkResult.GenericError -> {
-                            showSnackbar(result.message!!)
-                        }
-                        is NetworkResult.NetworkError -> {
-                            showSnackbar(getString(R.string.connection_error))
-                        }
-                    }
+            if(viewModel.validateSignUpForm(name, username, email, password, confirmPassword)){
+                signUp(name, username, email, password)
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
+    }
+    private fun signUp(
+        name: String,
+        username: String,
+        email: String,
+        password: String
+    ){
+        viewModel.signUp(
+            name, username, email, password
+        ).observe(viewLifecycleOwner){
+            binding.progressBar.visibility = View.GONE
+            val result = it ?: return@observe
+            when (result){
+                is NetworkResult.Success -> {
+                    navigateToDashboard()
+                }
+                is NetworkResult.GenericError -> {
+                    showSnackbar(result.message!!)
+                }
+                is NetworkResult.NetworkError -> {
+                    showSnackbar(getString(R.string.connection_error))
                 }
             }
         }
@@ -148,23 +108,9 @@ class SignUpFragment : Fragment() {
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit){
-        this.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                afterTextChanged.invoke(s.toString())
-            }
-        })
-    }
-
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
 }

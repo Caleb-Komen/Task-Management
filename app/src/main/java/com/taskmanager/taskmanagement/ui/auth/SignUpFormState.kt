@@ -5,6 +5,5 @@ data class SignUpFormState(
     val usernameError: Int? = null,
     val emailError: Int? = null,
     val passwordLengthError: Int? = null,
-    val passwordMatchError: Int? = null,
-    val isDataValid: Boolean = false
+    val passwordMatchError: Int? = null
 )

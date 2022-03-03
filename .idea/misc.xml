@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/button_state_default.xml" value="0.2005" />
+        <entry key="app/src/main/res/drawable/button_state_enabled.xml" value="0.2005" />
+        <entry key="app/src/main/res/drawable/sign_up_button_background.xml" value="0.2005" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.2838541666666667" />

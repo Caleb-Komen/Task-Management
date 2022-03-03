@@ -44,25 +44,30 @@ class AuthViewModel @Inject constructor(
         return signInUseCase(email, password)
     }
 
-    fun signUpDataChange(
+    fun validateSignUpForm(
         name: String,
         username: String,
         email: String,
         password: String,
         confirmPassword: String
-    ){
-        if (!isNameValid(name)){
+    ): Boolean{
+        return if (!isNameValid(name)){
             _signupFormState.value = SignUpFormState(nameError = R.string.empty_field_error)
+            false
         } else if (!isUsernameValid(username)){
             _signupFormState.value = SignUpFormState(usernameError = R.string.empty_field_error)
-        } else if (isEmailValid(email)){
+            false
+        } else if (!isEmailValid(email)){
             _signupFormState.value = SignUpFormState(emailError = R.string.email_error)
-        } else if (isPasswordLengthValid(password)){
+            false
+        } else if (!isPasswordLengthValid(password)){
             _signupFormState.value = SignUpFormState(passwordLengthError = R.string.password_length_error)
-        } else if (isPasswordValid(password, confirmPassword)){
+            false
+        } else if (!isPasswordValid(password, confirmPassword)){
             _signupFormState.value = SignUpFormState(passwordMatchError = R.string.password_error)
+            false
         } else{
-            _signupFormState.value = SignUpFormState(isDataValid = true)
+            true
         }
     }
 
