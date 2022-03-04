@@ -5,10 +5,10 @@ import androidx.room.Relation
 
 data class ProjectWithTaskListsAndTasks(
     @Embedded
-    val projectEntity: ProjectEntity,
+    val projectLocalEntity: ProjectLocalEntity,
 
     @Relation(
-        entity = TaskListEntity::class,
+        entity = TaskListLocalEntity::class,
         parentColumn = "id",
         entityColumn = "project_id"
     )

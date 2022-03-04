@@ -1,7 +1,7 @@
 package com.taskmanager.taskmanagement.data.local.dao
 
 import androidx.room.*
-import com.taskmanager.taskmanagement.data.local.entity.ProjectEntity
+import com.taskmanager.taskmanagement.data.local.entity.ProjectLocalEntity
 import com.taskmanager.taskmanagement.data.local.entity.ProjectWithTaskListsAndTasks
 
 @Dao
@@ -19,10 +19,10 @@ interface ProjectDao {
     fun searchProjects(key: String): List<ProjectWithTaskListsAndTasks>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun createProject(projectEntity: ProjectEntity): Long
+    suspend fun createProject(projectLocalEntity: ProjectLocalEntity): Long
 
     @Update
-    suspend fun updateProject(projectEntity: ProjectEntity): Int
+    suspend fun updateProject(projectLocalEntity: ProjectLocalEntity): Int
 
     @Query("DELETE FROM projects WHERE id = :id")
     suspend fun deleteProject(id: String): Int

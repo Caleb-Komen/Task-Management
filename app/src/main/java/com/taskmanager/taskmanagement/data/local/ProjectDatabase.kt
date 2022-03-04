@@ -6,12 +6,12 @@ import androidx.room.TypeConverters
 import com.taskmanager.taskmanagement.data.local.dao.ProjectDao
 import com.taskmanager.taskmanagement.data.local.dao.TaskDao
 import com.taskmanager.taskmanagement.data.local.dao.TaskListDao
-import com.taskmanager.taskmanagement.data.local.entity.ProjectEntity
-import com.taskmanager.taskmanagement.data.local.entity.TaskEntity
-import com.taskmanager.taskmanagement.data.local.entity.TaskListEntity
+import com.taskmanager.taskmanagement.data.local.entity.ProjectLocalEntity
+import com.taskmanager.taskmanagement.data.local.entity.TaskLocalEntity
+import com.taskmanager.taskmanagement.data.local.entity.TaskListLocalEntity
 
 @TypeConverters(Converter::class)
-@Database(entities = [ProjectEntity::class, TaskListEntity::class, TaskEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ProjectLocalEntity::class, TaskListLocalEntity::class, TaskLocalEntity::class], version = 1, exportSchema = false)
 abstract class ProjectDatabase: RoomDatabase() {
     abstract fun projectDao(): ProjectDao
 

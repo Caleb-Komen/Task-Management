@@ -10,7 +10,7 @@ import java.util.*
     tableName = "tasks",
     foreignKeys = [
         ForeignKey(
-            entity = TaskListEntity::class,
+            entity = TaskListLocalEntity::class,
             parentColumns = ["id"],
             childColumns = ["task_list_id"],
             onDelete = ForeignKey.CASCADE,
@@ -18,7 +18,7 @@ import java.util.*
         )
     ]
 )
-data class TaskEntity(
+data class TaskLocalEntity(
     @ColumnInfo(name = "id")
     @PrimaryKey
     val id: String = UUID.randomUUID().toString(),

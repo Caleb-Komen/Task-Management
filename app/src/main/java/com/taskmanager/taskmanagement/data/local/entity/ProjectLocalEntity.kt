@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "projects")
-data class ProjectEntity(
+data class ProjectLocalEntity(
     @ColumnInfo(name = "id")
     @PrimaryKey
     val id: String = UUID.randomUUID().toString(),

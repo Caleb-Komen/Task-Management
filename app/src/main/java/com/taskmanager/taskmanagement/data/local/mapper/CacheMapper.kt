@@ -6,8 +6,8 @@ import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.data.local.entity.*
 import com.taskmanager.taskmanagement.domain.model.User
 
-fun Task.toEntity(taskListId: String): TaskEntity {
-    return TaskEntity(
+fun Task.toEntity(taskListId: String): TaskLocalEntity {
+    return TaskLocalEntity(
         id = id,
         title = title,
         description = description,
@@ -18,7 +18,7 @@ fun Task.toEntity(taskListId: String): TaskEntity {
     )
 }
 
-fun TaskEntity.toDomain(): Task{
+fun TaskLocalEntity.toDomain(): Task{
     return Task(
         id = id,
         title = title,
@@ -29,8 +29,8 @@ fun TaskEntity.toDomain(): Task{
     )
 }
 
-fun TaskList.toEntity(projectId: String): TaskListEntity {
-    return TaskListEntity(
+fun TaskList.toEntity(projectId: String): TaskListLocalEntity {
+    return TaskListLocalEntity(
         id = id,
         title = title,
         tag = tag,
@@ -40,15 +40,15 @@ fun TaskList.toEntity(projectId: String): TaskListEntity {
 
 fun TaskListWithTasks.toDomain(): TaskList{
     return TaskList(
-        id = taskListEntity.id,
-        title = taskListEntity.title,
-        tasks = taskEntities.map { it.toDomain() },
-        tag = taskListEntity.tag
+        id = taskListLocalEntity.id,
+        title = taskListLocalEntity.title,
+        tasks = taskLocalEntities.map { it.toDomain() },
+        tag = taskListLocalEntity.tag
     )
 }
 
-fun Project.toEntity(): ProjectEntity {
-    return ProjectEntity(
+fun Project.toEntity(): ProjectLocalEntity {
+    return ProjectLocalEntity(
         id = id,
         name = name,
         members = members.map { it.toEntity() }
@@ -57,10 +57,10 @@ fun Project.toEntity(): ProjectEntity {
 
 fun ProjectWithTaskListsAndTasks.toDomain(): Project{
     return Project(
-        id = projectEntity.id,
-        name = projectEntity.name,
+        id = projectLocalEntity.id,
+        name = projectLocalEntity.name,
         taskLists = taskListEntities.map { it.toDomain() },
-        members = projectEntity.members.map{ it.toDomain() }
+        members = projectLocalEntity.members.map{ it.toDomain() }
     )
 }
 

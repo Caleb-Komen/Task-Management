@@ -5,11 +5,11 @@ import androidx.room.Relation
 
 data class TaskListWithTasks(
     @Embedded
-    val taskListEntity: TaskListEntity,
+    val taskListLocalEntity: TaskListLocalEntity,
 
     @Relation(
         parentColumn = "id",
         entityColumn = "task_list_id"
     )
-    val taskEntities: List<TaskEntity>
+    val taskLocalEntities: List<TaskLocalEntity>
 )
