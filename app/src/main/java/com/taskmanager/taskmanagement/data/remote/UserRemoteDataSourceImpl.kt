@@ -30,40 +30,42 @@ class UserRemoteDataSourceImpl @Inject constructor(
         password: String
     ): LiveData<NetworkResult<User>> = liveData{
         val result = MutableLiveData<NetworkResult<User>>()
-        firebaseAuth!!.createUserWithEmailAndPassword(email, password)
-            .addOnFailureListener {
-                result.value = NetworkResult.GenericError(null, SIGN_UP_FAILED)
-                log(it.message)
-            }
-            .await()
-            .user?.let { firebaseUser ->
-                val userEntity = UserNetworkEntity(
-                    id = firebaseUser.uid,
-                    name = name,
-                    username = username,
-                    email = firebaseUser.email!!,
-                    photo = ""
-                )
-                val user = userEntity.toDomain()
-                saveUser(userEntity)
-                result.value = NetworkResult.Success(user)
-            }
+        try {
+            firebaseAuth!!.createUserWithEmailAndPassword(email, password)
+                .await()
+                .user?.let { firebaseUser ->
+                    val userEntity = UserNetworkEntity(
+                        id = firebaseUser.uid,
+                        name = name,
+                        username = username,
+                        email = firebaseUser.email!!,
+                        photo = ""
+                    )
+                    val user = userEntity.toDomain()
+                    saveUser(userEntity)
+                    result.value = NetworkResult.Success(user)
+                }
+        } catch (e: Exception){
+            result.value = NetworkResult.GenericError(null, SIGN_UP_FAILED)
+            log(e.message)
+        }
         emit(result.value!!)
     }
 
     override fun signInUser(email: String, password: String): LiveData<NetworkResult<User>> = liveData{
         val result = MutableLiveData<NetworkResult<User>>()
-        firebaseAuth!!.signInWithEmailAndPassword(email, password)
-            .addOnFailureListener {
-                result.value = NetworkResult.GenericError(null, SIGN_IN_FAILED)
-                log(it.message)
-            }
-            .await()
-            .user.also {
-                val firebaseUser = firebaseAuth.currentUser!!
-                val user = getUserById(firebaseUser.uid)!!
-                result.value = NetworkResult.Success(user)
-            }
+        try {
+            firebaseAuth!!.signInWithEmailAndPassword(email, password)
+                .await()
+                .user.also {
+                    val firebaseUser = firebaseAuth.currentUser!!
+                    val user = getUserById(firebaseUser.uid)!!
+                    result.value = NetworkResult.Success(user)
+                }
+        } catch (e: Exception){
+            result.value = NetworkResult.GenericError(null, SIGN_IN_FAILED)
+            log(e.message)
+        }
         emit(result.value!!)
     }
 

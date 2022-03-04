@@ -76,8 +76,14 @@ class SignInFragment : Fragment() {
     }
 
     private fun navigateToSignUp() {
+        clearText()
         val action = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
         findNavController().navigate(action)
+    }
+
+    private fun clearText(){
+        binding.etEmail.setText("")
+        binding.etPassword.setText("")
     }
 
     private fun navigateToDashboard(){

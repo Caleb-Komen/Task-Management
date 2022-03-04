@@ -9,5 +9,5 @@ object Constants {
     const val USERS_COLLECTION = "Users"
 
     const val SIGN_UP_FAILED = "Sign up failed"
-    const val SIGN_IN_FAILED = "Sign in failed"
+    const val SIGN_IN_FAILED = "Sign in failed. Confirm your login credentials \nor internet connectivity"
 }
