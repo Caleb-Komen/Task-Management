@@ -1,17 +1,19 @@
 package com.taskmanager.taskmanagement.data.util
 
-data class Resource<out T>(val data: T?, val message: String?){
+import com.taskmanager.taskmanagement.data.util.Status.*
+
+data class Resource<out T>(val status: Status, val data: T?, val message: String?){
     companion object {
         fun <T>success(data: T?): Resource<T>{
-            return Resource(data, null)
+            return Resource(SUCCESS, data, null)
         }
 
         fun <T>error(message: String?): Resource<T>{
-            return Resource(null, message)
+            return Resource(ERROR, null, message)
         }
 
         fun <T>loading(data: T?): Resource<T>{
-            return Resource(data, null)
+            return Resource(LOADING, data, null)
         }
     }
 }

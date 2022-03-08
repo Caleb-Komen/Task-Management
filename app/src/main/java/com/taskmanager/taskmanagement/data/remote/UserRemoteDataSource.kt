@@ -18,7 +18,7 @@ interface UserRemoteDataSource {
 
     suspend fun signOutUser()
 
-    suspend fun getUserById(id: String): User?
+    suspend fun getUserById(id: String): LiveData<User?>
 
     fun getUser(id: String): User?
 

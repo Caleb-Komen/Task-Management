@@ -59,7 +59,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 .await()
                 .user.also {
                     val firebaseUser = firebaseAuth.currentUser!!
-                    val user = getUserById(firebaseUser.uid)!!
+                    val user = getUserById(firebaseUser.uid).value!!
                     result.value = NetworkResult.Success(user)
                 }
         } catch (e: Exception){
@@ -83,8 +83,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
             .await()
     }
 
-    override suspend fun getUserById(id: String): User? {
-        return firestore.collection(USERS_COLLECTION)
+    override suspend fun getUserById(id: String): LiveData<User?> = liveData{
+        val user = firestore.collection(USERS_COLLECTION)
             .document(id)
             .get()
             .addOnFailureListener {
@@ -93,6 +93,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
             .await()
             .toObject(UserNetworkEntity::class.java)
             ?.toDomain()
+        emit(user)
     }
 
     override fun getUser(id: String): User? {

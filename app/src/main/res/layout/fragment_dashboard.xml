@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="projectsSize"
+            type="Integer" />
+
+        <variable
+            name="myTasksSize"
+            type="Integer" />
+
+        <variable
+            name="myScheduledTasksSize"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.dashboard.DashboardFragment">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_dashboard"
@@ -32,32 +59,35 @@
             app:cardCornerRadius="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_dashboard">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp"
-                android:gravity="center">
+                android:padding="8dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/projects"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
+                    android:text="@string/projects"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
-                    tools:text="1"/>
+                    android:gravity="center"
+                    android:text="@{String.valueOf(projectsSize)}"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:text="1" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -71,33 +101,37 @@
             app:layout_constraintBottom_toBottomOf="@+id/card_projects"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/card_projects">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp"
-                android:gravity="center">
+                android:padding="8dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
                     android:text="@string/my_tasks"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"/>
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:gravity="center"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
-                    tools:text="5"/>
+                    android:gravity="center"
+                    android:text="@{String.valueOf(myTasksSize)}"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:text="5" />
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -109,33 +143,37 @@
             app:cardCornerRadius="8dp"
             app:layout_constraintStart_toStartOf="@+id/card_projects"
             app:layout_constraintTop_toBottomOf="@+id/card_my_tasks">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp"
-                android:gravity="center">
+                android:padding="8dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
                     android:text="@string/scheduled_tasks"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"/>
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:gravity="center"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
-                    tools:text="3"/>
+                    android:gravity="center"
+                    android:text="@{String.valueOf(myScheduledTasksSize)}"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:text="3" />
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.taskmanager.taskmanagement.data.local
 
+import com.taskmanager.taskmanagement.data.local.Constants.CACHE_NO_DATA_ERROR
 import com.taskmanager.taskmanagement.data.util.Resource
 
 abstract class CacheResponseHandler<T>(
@@ -17,7 +18,7 @@ abstract class CacheResponseHandler<T>(
 
             is CacheResult.Success -> {
                 if (result.data == null){
-                    Resource.success(null)
+                    Resource.error(CACHE_NO_DATA_ERROR)
                 } else {
                     handleSuccess(result.data)
                 }
