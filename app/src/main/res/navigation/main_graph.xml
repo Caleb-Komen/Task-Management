@@ -8,12 +8,10 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.taskmanager.taskmanagement.ui.dashboard.DashboardFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard">
-<!--        <action-->
-<!--            android:id="@+id/action_dashboardFragment_to_signInFragment"-->
-<!--            app:destination="@id/signInFragment"-->
-<!--            app:popUpTo="@id/dashboardFragment"-->
-<!--            app:popUpToInclusive="true" />-->
-    </fragment>
+        android:label="@string/dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/projectsFragment"
+        android:name="com.taskmanager.taskmanagement.ui.projects.ProjectsFragment"
+        android:label="@string/projects" />
 </navigation>
