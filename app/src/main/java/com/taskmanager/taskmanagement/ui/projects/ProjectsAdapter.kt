@@ -1,13 +1,10 @@
 package com.taskmanager.taskmanagement.ui.projects
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taskmanager.taskmanagement.R
-import com.taskmanager.taskmanagement.databinding.ListItemNewProjectBinding
-import com.taskmanager.taskmanagement.databinding.ListItemProjectBinding
 import com.taskmanager.taskmanagement.domain.model.Project
 
 class ProjectsAdapter: ListAdapter<Project, RecyclerView.ViewHolder>(DIFF_UTIL) {
@@ -35,43 +32,6 @@ class ProjectsAdapter: ListAdapter<Project, RecyclerView.ViewHolder>(DIFF_UTIL) 
             R.layout.list_item_new_project
         } else {
             R.layout.list_item_project
-        }
-    }
-}
-
-class ProjectsViewHolder(private val binding: ListItemProjectBinding): RecyclerView.ViewHolder(binding.root){
-    fun bind(item: Project?){
-        item?.let { project ->
-            binding.apply {
-                projectName = project.name
-                executePendingBindings()
-            }
-        }
-    }
-
-    companion object{
-        fun create(parent: ViewGroup): ProjectsViewHolder{
-            return ProjectsViewHolder(
-                ListItemProjectBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            )
-        }
-    }
-}
-
-class NewProjectItemViewHolder(private val binding: ListItemNewProjectBinding): RecyclerView.ViewHolder(binding.root){
-    companion object{
-        fun create(parent: ViewGroup): NewProjectItemViewHolder{
-            return NewProjectItemViewHolder(
-                ListItemNewProjectBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            )
         }
     }
 }

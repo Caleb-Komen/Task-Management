@@ -8,7 +8,6 @@ import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.usecases.GetAllProjectsUseCase
 import com.ujumbetech.archtask.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
