@@ -1,14 +1,18 @@
 package com.taskmanager.taskmanagement.ui.projects
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.databinding.FragmentProjectsBinding
+import com.taskmanager.taskmanagement.databinding.NewProjectDialogBinding
+import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.ui.util.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,10 +42,33 @@ class ProjectsFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        binding.rvProjects.adapter = ProjectsAdapter()
+        binding.rvProjects.adapter = ProjectsAdapter {
+            showDialog()
+        }
     }
 
     private fun setupSnackbar(){
         view?.showSnackbar(viewLifecycleOwner, viewModel.snackbarText, Snackbar.LENGTH_SHORT)
+    }
+
+    private fun showDialog(){
+        val view = requireActivity().layoutInflater.inflate(R.layout.new_project_dialog, null)
+        val binding = NewProjectDialogBinding.bind(view)
+        val dialog = AlertDialog.Builder(requireContext(), android.R.style.Theme_Material_Light_Dialog_Alert)
+            .setView(view)
+            .setPositiveButton("OK") { dialog, which ->
+                val projectName = binding.etName.text.toString().trim()
+                val project = Project(name = projectName)
+                viewModel.createProject(project)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .create()
+        dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
     }
 }

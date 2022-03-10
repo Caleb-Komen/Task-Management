@@ -24,4 +24,5 @@
     <string name="scheduled_tasks">Scheduled Tasks</string>
 
     <string name="loading_projects_error">Error loading projects</string>
+    <string name="new_project">New project</string>
 </resources>

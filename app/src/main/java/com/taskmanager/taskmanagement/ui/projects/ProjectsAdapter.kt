@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.domain.model.Project
 
-class ProjectsAdapter: ListAdapter<Project, RecyclerView.ViewHolder>(DIFF_UTIL) {
+class ProjectsAdapter(private val showDialog: () -> Unit): ListAdapter<Project, RecyclerView.ViewHolder>(DIFF_UTIL) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == R.layout.list_item_project){
             ProjectsViewHolder.create(parent)
         } else {
-            NewProjectItemViewHolder.create(parent)
+            NewProjectItemViewHolder.create(parent, showDialog)
         }
     }
 

@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/list_item_new_project.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/list_item_project.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/new_project_dialog.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/dashboard_menu.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/nav_view_menu.xml" value="0.5438202247191011" />
       </map>

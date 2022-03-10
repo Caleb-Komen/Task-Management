@@ -6,13 +6,16 @@ import com.taskmanager.taskmanagement.data.util.Resource
 import com.taskmanager.taskmanagement.data.util.Status.*
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.usecases.GetAllProjectsUseCase
+import com.taskmanager.taskmanagement.domain.usecases.InsertProjectUseCase
 import com.ujumbetech.archtask.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectsViewModel @Inject constructor(
-    private val getAllProjectsUseCase: GetAllProjectsUseCase
+    private val getAllProjectsUseCase: GetAllProjectsUseCase,
+    private val insertProjectUseCase: InsertProjectUseCase
 ): ViewModel() {
     private val _dataLoading = MutableLiveData(false)
     val dataLoading: LiveData<Boolean> get() = _dataLoading
@@ -24,6 +27,12 @@ class ProjectsViewModel @Inject constructor(
         val resources = getAllProjectsUseCase()
         return resources.asLiveData().distinctUntilChanged().switchMap { resource ->
             filterTypes(resource)
+        }
+    }
+
+    fun createProject(project: Project){
+        viewModelScope.launch {
+            insertProjectUseCase(project)
         }
     }
 
