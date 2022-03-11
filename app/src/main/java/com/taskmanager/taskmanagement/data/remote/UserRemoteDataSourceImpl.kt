@@ -84,15 +84,17 @@ class UserRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getUserById(id: String): LiveData<User?> = liveData{
-        val user = firestore.collection(USERS_COLLECTION)
-            .document(id)
-            .get()
-            .addOnFailureListener {
-                log(it.message)
-            }
-            .await()
-            .toObject(UserNetworkEntity::class.java)
-            ?.toDomain()
+        var user: User? = null
+        try {
+             user = firestore.collection(USERS_COLLECTION)
+                 .document(id)
+                 .get()
+                 .await()
+                 .toObject(UserNetworkEntity::class.java)
+                 ?.toDomain()
+        } catch (e: Exception){
+            log(e.message)
+        }
         emit(user)
     }
 

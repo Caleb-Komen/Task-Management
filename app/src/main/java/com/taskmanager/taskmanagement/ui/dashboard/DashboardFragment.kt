@@ -21,14 +21,19 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null){
+            navigateToLogin()
+            return
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user == null){
-            navigateToLogin()
-        }
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
@@ -36,6 +41,10 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.user.observe(viewLifecycleOwner){ user ->
+            Toast.makeText(requireContext(), "Welcome ${user.name}", Toast.LENGTH_SHORT).show()
+        }
+
         viewModel.allProjects.observe(viewLifecycleOwner){
             val resource = it ?: return@observe
             updateUI(resource)

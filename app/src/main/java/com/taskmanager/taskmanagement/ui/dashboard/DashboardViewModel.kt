@@ -24,7 +24,7 @@ class DashboardViewModel @Inject constructor(
     private val _retrieveProjects = MutableLiveData(false)
 
     private val _user = MutableLiveData<User>()
-    val user get() = _user
+    val user: LiveData<User> get() = _user
 
     val allProjects: LiveData<Resource<List<Project>>?> = _retrieveProjects.switchMap {
         getAllProjectsUseCase().asLiveData()
@@ -47,8 +47,8 @@ class DashboardViewModel @Inject constructor(
     }
 
     init {
-        loadProjects(true)
         getUserById(firebaseAuth.currentUser?.uid!!)
+        loadProjects(true)
     }
 
     fun loadProjects(retrieve: Boolean){
