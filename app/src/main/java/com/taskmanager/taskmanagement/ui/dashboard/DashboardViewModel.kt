@@ -47,7 +47,9 @@ class DashboardViewModel @Inject constructor(
     }
 
     init {
-        getUserById(firebaseAuth.currentUser?.uid!!)
+        viewModelScope.launch {
+            getUserById(firebaseAuth.currentUser?.uid!!)
+        }
         loadProjects(true)
     }
 
@@ -85,11 +87,9 @@ class DashboardViewModel @Inject constructor(
         return MutableLiveData(scheduledTasks)
     }
 
-    private fun getUserById(userId: String){
-        viewModelScope.launch {
-            val currentUser = getUserUseCase(userId)
-            _user.value = currentUser.value
-        }
+    private suspend fun getUserById(userId: String){
+        val currentUser = getUserUseCase(userId)
+        _user.value = currentUser!!
     }
 
     fun signOut(){

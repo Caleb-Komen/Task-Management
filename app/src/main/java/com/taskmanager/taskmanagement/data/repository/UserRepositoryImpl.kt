@@ -31,7 +31,7 @@ class UserRepositoryImpl @Inject constructor(
         userRemoteDataSource.signOutUser()
     }
 
-    override suspend fun getUserById(id: String): LiveData<User?> {
+    override suspend fun getUserById(id: String): User? {
         return userRemoteDataSource.getUserById(id)
     }
 
