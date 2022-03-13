@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.databinding.FragmentProjectsBinding
@@ -39,10 +40,11 @@ class ProjectsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         setupSnackbar()
+        setupNavigation()
     }
 
     private fun setupAdapter() {
-        binding.rvProjects.adapter = ProjectsAdapter {
+        binding.rvProjects.adapter = ProjectsAdapter(viewModel) {
             showDialog()
         }
     }
@@ -51,18 +53,31 @@ class ProjectsFragment : Fragment() {
         view?.showSnackbar(viewLifecycleOwner, viewModel.snackbarText, Snackbar.LENGTH_SHORT)
     }
 
+    private fun setupNavigation(){
+        viewModel.openProjectEvent.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let { projectId ->
+                val action = ProjectsFragmentDirections.actionProjectsFragmentToProjectDetailsFragment(projectId)
+                findNavController().navigate(action)
+            }
+        }
+    }
+
     private fun showDialog(){
         val view = requireActivity().layoutInflater.inflate(R.layout.new_project_dialog, null)
         val binding = NewProjectDialogBinding.bind(view)
         val dialog = AlertDialog.Builder(requireContext(), android.R.style.Theme_Material_Light_Dialog_Alert)
             .setView(view)
-            .setPositiveButton("OK") { dialog, which ->
+            .setPositiveButton(R.string.ok) { dialog, which ->
                 val projectName = binding.etName.text.toString().trim()
+                if(projectName.isEmpty()){
+                    dialog.dismiss()
+                    return@setPositiveButton
+                }
                 val project = Project(name = projectName)
                 viewModel.createProject(project)
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancel") { dialog, which ->
+            .setNegativeButton(R.string.ok) { dialog, which ->
                 dialog.dismiss()
             }
             .setCancelable(true)

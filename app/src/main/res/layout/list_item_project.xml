@@ -6,6 +6,12 @@
         <variable
             name="projectName"
             type="String" />
+        <variable
+            name="projectId"
+            type="String" />
+        <variable
+            name="viewmodel"
+            type="com.taskmanager.taskmanagement.ui.projects.ProjectsViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,6 +22,7 @@
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="@{() -> viewmodel.openProject(projectId)}"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp">

@@ -25,4 +25,8 @@
 
     <string name="loading_projects_error">Error loading projects</string>
     <string name="new_project">New project</string>
+    <string name="new_task_list">New Task List</string>
+    <string name="title">Title</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

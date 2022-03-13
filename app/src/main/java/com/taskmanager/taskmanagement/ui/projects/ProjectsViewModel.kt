@@ -23,6 +23,9 @@ class ProjectsViewModel @Inject constructor(
     private val _snackbarText = MutableLiveData<Event<Int>>()
     val snackbarText: LiveData<Event<Int>> get() = _snackbarText
 
+    private val _openProjectEvent = MutableLiveData<Event<String>>()
+    val openProjectEvent: LiveData<Event<String>> get() = _openProjectEvent
+
     fun getAllProjects(): LiveData<List<Project>>{
         val resources = getAllProjectsUseCase()
         return resources.asLiveData().distinctUntilChanged().switchMap { resource ->
@@ -34,6 +37,10 @@ class ProjectsViewModel @Inject constructor(
         viewModelScope.launch {
             insertProjectUseCase(project)
         }
+    }
+
+    fun openProject(projectId: String){
+        _openProjectEvent.value = Event(projectId)
     }
 
     private fun filterTypes(resource: Resource<List<Project>>?): LiveData<List<Project>>{
