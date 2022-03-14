@@ -67,7 +67,7 @@ class ProjectsFragment : Fragment() {
         val binding = NewProjectDialogBinding.bind(view)
         val dialog = AlertDialog.Builder(requireContext(), android.R.style.Theme_Material_Light_Dialog_Alert)
             .setView(view)
-            .setPositiveButton(R.string.ok) { dialog, which ->
+            .setPositiveButton(R.string.ok) { dialog, _ ->
                 val projectName = binding.etName.text.toString().trim()
                 if(projectName.isEmpty()){
                     dialog.dismiss()
@@ -77,7 +77,7 @@ class ProjectsFragment : Fragment() {
                 viewModel.createProject(project)
                 dialog.dismiss()
             }
-            .setNegativeButton(R.string.ok) { dialog, which ->
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(true)
