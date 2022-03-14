@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/material_dynamic_primary90"
-        android:padding="32dp"
         tools:context=".ui.projectdetails.ProjectDetailsFragment">
 
         <androidx.recyclerview.widget.RecyclerView

@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/projectDetailsFragment"
         android:name="com.taskmanager.taskmanagement.ui.projectdetails.ProjectDetailsFragment"
-        android:label="ProjectDetailsFragment" >
+        android:label="@string/project_details" >
         <argument
             android:name="projectId"
             app:argType="string" />

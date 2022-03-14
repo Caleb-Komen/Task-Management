@@ -8,10 +8,13 @@
             type="com.taskmanager.taskmanagement.domain.model.TaskList" />
     </data>
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:orientation="vertical">
 
         <TextView

@@ -1,7 +1,10 @@
 package com.taskmanager.taskmanagement.ui.util
 
+import android.view.Gravity
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.TaskList
 import com.taskmanager.taskmanagement.ui.projectdetails.ProjectDetailsAdapter
@@ -18,5 +21,8 @@ fun setProjects(view: RecyclerView, projects: List<Project>?){
 fun setTaskLists(view: RecyclerView, taskLists: List<TaskList>?){
     taskLists?.let {
         (view.adapter as ProjectDetailsAdapter).submitList(taskLists)
+        view.smoothScrollToPosition(0)
+        val snapHelper = GravitySnapHelper(Gravity.START) // viewpager-like behaviour in recyclerview
+        snapHelper.attachToRecyclerView(view)
     }
 }

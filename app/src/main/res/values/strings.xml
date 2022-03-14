@@ -22,6 +22,7 @@
     <string name="projects">Projects</string>
     <string name="my_tasks">My Tasks</string>
     <string name="scheduled_tasks">Scheduled Tasks</string>
+    <string name="project_details">Project Details</string>
 
     <string name="loading_projects_error">Error loading projects</string>
     <string name="new_project">New project</string>
@@ -29,4 +30,5 @@
     <string name="title">Title</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="create_new">Create New</string>
 </resources>

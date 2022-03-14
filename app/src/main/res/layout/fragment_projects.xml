@@ -19,7 +19,7 @@
             android:id="@+id/rv_projects"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             app:items="@{viewmodel.allProjects}"
             tools:listitem="@layout/list_item_project" />
