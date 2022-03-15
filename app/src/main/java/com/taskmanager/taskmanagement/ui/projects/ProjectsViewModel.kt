@@ -9,9 +9,15 @@ import com.taskmanager.taskmanagement.domain.usecases.GetAllProjectsUseCase
 import com.taskmanager.taskmanagement.domain.usecases.InsertProjectUseCase
 import com.ujumbetech.archtask.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class ProjectsViewModel @Inject constructor(
     private val getAllProjectsUseCase: GetAllProjectsUseCase,
@@ -28,9 +34,9 @@ class ProjectsViewModel @Inject constructor(
 
     fun getAllProjects(): LiveData<List<Project>>{
         val resources = getAllProjectsUseCase()
-        return resources.asLiveData().distinctUntilChanged().switchMap { resource ->
+        return resources.distinctUntilChanged().flatMapLatest { resource ->
             filterTypes(resource)
-        }
+        }.asLiveData()
     }
 
     fun createProject(project: Project){
@@ -43,17 +49,16 @@ class ProjectsViewModel @Inject constructor(
         _openProjectEvent.value = Event(projectId)
     }
 
-    private fun filterTypes(resource: Resource<List<Project>>?): LiveData<List<Project>>{
-        val projects = MutableLiveData<List<Project>>()
+    private fun filterTypes(resource: Resource<List<Project>>?): Flow<List<Project>>{
+        val projects = ArrayList<List<Project>>()
         resource?.let { res ->
             when (res.status){
                 SUCCESS -> {
                     _dataLoading.value = false
-                    projects.value = res.data!!
+                    projects.add(res.data!!)
                 }
                 ERROR -> {
                     _dataLoading.value = false
-                    projects.value = emptyList()
                     _snackbarText.value = Event(R.string.loading_projects_error)
                 }
                 LOADING -> {
@@ -61,6 +66,6 @@ class ProjectsViewModel @Inject constructor(
                 }
             }
         }
-        return projects
+        return projects.asFlow()
     }
 }

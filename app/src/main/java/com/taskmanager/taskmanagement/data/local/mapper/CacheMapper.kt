@@ -64,6 +64,14 @@ fun ProjectWithTaskListsAndTasks.toDomain(): Project{
     )
 }
 
+fun ProjectLocalEntity.toDomain(): Project{
+    return Project(
+        id = id,
+        name = name,
+        members = members.map { it.toDomain() }
+    )
+}
+
 fun User.toEntity(): UserLocalEntity{
     return UserLocalEntity(
         id = id,

@@ -7,16 +7,14 @@ import com.taskmanager.taskmanagement.data.local.entity.ProjectWithTaskListsAndT
 @Dao
 interface ProjectDao {
     @Query("SELECT * FROM projects")
-    @Transaction
-    fun getAllProjects(): List<ProjectWithTaskListsAndTasks>
+    fun getAllProjects(): List<ProjectLocalEntity>
 
     @Query("SELECT * FROM projects WHERE id = :projectId")
     @Transaction
     fun getProject(projectId: String): ProjectWithTaskListsAndTasks
 
-    @Transaction
     @Query("SELECT * FROM projects WHERE name LIKE '%' || :key || '%'")
-    fun searchProjects(key: String): List<ProjectWithTaskListsAndTasks>
+    fun searchProjects(key: String): List<ProjectLocalEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun createProject(projectLocalEntity: ProjectLocalEntity): Long
