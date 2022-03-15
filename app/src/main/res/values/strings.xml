@@ -31,4 +31,8 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="create_new">Create New</string>
+
+    <string name="delete_project">Delete Project</string>
+    <string name="confirm_dialog_title">Are you sure?</string>
+    <string name="project_deleted_message">Project Deleted</string>
 </resources>

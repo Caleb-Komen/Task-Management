@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.databinding.FragmentProjectsBinding
@@ -16,10 +17,14 @@ import com.taskmanager.taskmanagement.databinding.NewProjectDialogBinding
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.ui.util.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ProjectsFragment : Fragment() {
     private val viewModel: ProjectsViewModel by viewModels()
+
+    private val args: ProjectsFragmentArgs by navArgs()
 
     private var _binding: FragmentProjectsBinding? = null
     val binding get() = _binding!!
@@ -51,6 +56,9 @@ class ProjectsFragment : Fragment() {
 
     private fun setupSnackbar(){
         view?.showSnackbar(viewLifecycleOwner, viewModel.snackbarText, Snackbar.LENGTH_SHORT)
+        arguments?.let {
+            viewModel.showEditResultMessage(args.message)
+        }
     }
 
     private fun setupNavigation(){

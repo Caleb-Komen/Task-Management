@@ -17,6 +17,10 @@
         <action
             android:id="@+id/action_projectsFragment_to_projectDetailsFragment"
             app:destination="@id/projectDetailsFragment" />
+        <argument
+            android:name="message"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/projectDetailsFragment"
@@ -25,5 +29,13 @@
         <argument
             android:name="projectId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_projectDetailsFragment_to_projectsFragment"
+            app:destination="@id/projectsFragment"
+            app:popUpTo="@id/projectsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <argument
+        android:name="message"
+        android:defaultValue="0" />
 </navigation>

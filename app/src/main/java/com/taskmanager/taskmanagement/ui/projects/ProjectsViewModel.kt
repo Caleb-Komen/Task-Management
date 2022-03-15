@@ -7,6 +7,7 @@ import com.taskmanager.taskmanagement.data.util.Status.*
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.usecases.GetAllProjectsUseCase
 import com.taskmanager.taskmanagement.domain.usecases.InsertProjectUseCase
+import com.taskmanager.taskmanagement.ui.util.DELETE_OK
 import com.ujumbetech.archtask.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,6 +33,8 @@ class ProjectsViewModel @Inject constructor(
     private val _openProjectEvent = MutableLiveData<Event<String>>()
     val openProjectEvent: LiveData<Event<String>> get() = _openProjectEvent
 
+    private var resultMessageShown = false
+
     fun getAllProjects(): LiveData<List<Project>>{
         val resources = getAllProjectsUseCase()
         return resources.distinctUntilChanged().flatMapLatest { resource ->
@@ -47,6 +50,14 @@ class ProjectsViewModel @Inject constructor(
 
     fun openProject(projectId: String){
         _openProjectEvent.value = Event(projectId)
+    }
+
+    fun showEditResultMessage(message: Int){
+        if (resultMessageShown) return
+        when (message) {
+            DELETE_OK -> _snackbarText.value = Event(message)
+        }
+        resultMessageShown = true
     }
 
     private fun filterTypes(resource: Resource<List<Project>>?): Flow<List<Project>>{

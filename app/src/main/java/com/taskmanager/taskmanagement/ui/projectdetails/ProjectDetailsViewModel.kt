@@ -7,8 +7,10 @@ import com.taskmanager.taskmanagement.data.util.Resource
 import com.taskmanager.taskmanagement.data.util.Status.*
 import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.model.TaskList
+import com.taskmanager.taskmanagement.domain.usecases.DeleteProjectUseCase
 import com.taskmanager.taskmanagement.domain.usecases.GetProjectUseCase
 import com.taskmanager.taskmanagement.domain.usecases.InsertTaskListUseCase
+import com.taskmanager.taskmanagement.ui.util.DELETE_OK
 import com.ujumbetech.archtask.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,6 +23,7 @@ import javax.inject.Inject
 class ProjectDetailsViewModel @Inject constructor(
     private val getProjectUseCase: GetProjectUseCase,
     private val insertTaskListUseCase: InsertTaskListUseCase,
+    private val deleteProjectUseCase: DeleteProjectUseCase,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
     val projectId = savedStateHandle.get<String>(PROJECT_ID_KEY)!!
@@ -30,6 +33,9 @@ class ProjectDetailsViewModel @Inject constructor(
 
     private val _snackbarText = MutableStateFlow(Event(""))
     val snackbarText: StateFlow<Event<String>> get() = _snackbarText
+
+    private val _deleteProjectEvent = MutableStateFlow(Event(0))
+    val deleteProjectEvent: StateFlow<Event<Int>> get() = _deleteProjectEvent
 
     fun getProject(): Flow<Project>{
         val resource = getProjectUseCase(projectId)
@@ -41,6 +47,13 @@ class ProjectDetailsViewModel @Inject constructor(
     fun createTaskList(taskList: TaskList){
         viewModelScope.launch {
             insertTaskListUseCase(taskList, projectId)
+        }
+    }
+
+    fun deleteProject(){
+        viewModelScope.launch {
+            deleteProjectUseCase(projectId)
+            _deleteProjectEvent.value = Event(DELETE_OK)
         }
     }
 
