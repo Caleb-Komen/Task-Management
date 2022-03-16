@@ -83,7 +83,7 @@ class ProjectsFragment : Fragment() {
                 }
                 val project = Project(name = projectName)
                 viewModel.createProject(project)
-                dialog.dismiss()
+
             }
             .setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()

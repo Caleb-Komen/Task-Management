@@ -1,8 +1,6 @@
 package com.taskmanager.taskmanagement.ui.projectdetails
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.taskmanager.taskmanagement.data.util.Resource
 import com.taskmanager.taskmanagement.data.util.Status.*
 import com.taskmanager.taskmanagement.domain.model.Project
@@ -11,7 +9,7 @@ import com.taskmanager.taskmanagement.domain.usecases.DeleteProjectUseCase
 import com.taskmanager.taskmanagement.domain.usecases.GetProjectUseCase
 import com.taskmanager.taskmanagement.domain.usecases.InsertTaskListUseCase
 import com.taskmanager.taskmanagement.ui.util.DELETE_OK
-import com.ujumbetech.archtask.Event
+import com.taskmanager.taskmanagement.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -28,18 +26,21 @@ class ProjectDetailsViewModel @Inject constructor(
 ): ViewModel() {
     val projectId = savedStateHandle.get<String>(PROJECT_ID_KEY)!!
 
-    private val _dataLoading = MutableStateFlow(false)
-    val dataLoading: StateFlow<Boolean> get() = _dataLoading
+    val _project = MutableLiveData<Project>()
+    val project: LiveData<Project> get() = _project
 
-    private val _snackbarText = MutableStateFlow(Event(""))
-    val snackbarText: StateFlow<Event<String>> get() = _snackbarText
+    private val _dataLoading = MutableLiveData<Boolean>()
+    val dataLoading: LiveData<Boolean> get() = _dataLoading
 
-    private val _deleteProjectEvent = MutableStateFlow(Event(0))
-    val deleteProjectEvent: StateFlow<Event<Int>> get() = _deleteProjectEvent
+    private val _snackbarText = MutableLiveData<Event<String>>()
+    val snackbarText: LiveData<Event<String>> get() = _snackbarText
 
-    fun getProject(): Flow<Project>{
+    private val _deleteProjectEvent = MutableLiveData<Event<Int>>()
+    val deleteProjectEvent: LiveData<Event<Int>> get() = _deleteProjectEvent
+
+    fun getProjectData(){
         val resource = getProjectUseCase(projectId)
-        return resource.distinctUntilChanged().flatMapLatest { res ->
+        resource.distinctUntilChanged().map { res ->
             filterType(res)
         }
     }
@@ -57,12 +58,12 @@ class ProjectDetailsViewModel @Inject constructor(
         }
     }
 
-    private fun filterType(resource: Resource<Project>?): Flow<Project> = flow{
+    private fun filterType(resource: Resource<Project>?){
         resource?.let { res ->
-            return@flow when (res.status){
+            when (res.status){
                 SUCCESS -> {
                     _dataLoading.value = false
-                    emit(res.data!!)
+                    _project.value = res.data!!
                 }
                 ERROR -> {
                     _dataLoading.value = false

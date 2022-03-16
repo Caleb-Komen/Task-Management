@@ -6,11 +6,9 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="project"
-            type="com.taskmanager.taskmanagement.domain.model.Project" />
-        <variable
-            name="show"
-            type="Boolean" />
+            name="viewmodel"
+            type="com.taskmanager.taskmanagement.ui.projectdetails.ProjectDetailsViewModel" />
+
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,13 +22,13 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:items="@{project.taskLists}"
+            app:items="@{viewmodel.project.taskLists}"
             tools:listitem="@layout/list_item_task_list" />
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
             android:layout_centerInParent="true"
-            android:visibility="@{show ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}"/>
     </RelativeLayout>
 </layout>

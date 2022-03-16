@@ -5,7 +5,6 @@ import android.widget.ProgressBar
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.google.android.material.snackbar.Snackbar
-import com.ujumbetech.archtask.Event
 
 fun ProgressBar.showProgress(show: Boolean){
     this.visibility = if (show) View.VISIBLE else View.GONE

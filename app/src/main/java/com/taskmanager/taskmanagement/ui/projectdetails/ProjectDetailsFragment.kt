@@ -15,6 +15,8 @@ import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.databinding.FragmentProjectDetailsBinding
 import com.taskmanager.taskmanagement.databinding.NewTaskListDialogBinding
 import com.taskmanager.taskmanagement.domain.model.TaskList
+import com.taskmanager.taskmanagement.ui.util.DELETE_OK
+import com.taskmanager.taskmanagement.ui.util.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -32,42 +34,20 @@ class ProjectDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_project_details, container, false)
-        _binding = FragmentProjectDetailsBinding.bind(view)
+        _binding = FragmentProjectDetailsBinding.bind(view).apply {
+            viewmodel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
         setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.getProjectData()
         setupAdapter()
-        lifecycleScope.launch {
-            viewModel.getProject().collect{
-                binding.project = it
-            }
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.dataLoading.collect {
-                    binding.show = it
-                }
-            }
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.snackbarText.collect{ event ->
-                    event.getContentIfNotHandled()?.let {
-                        Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.deleteProjectEvent.collect{ event ->
-                    event.getContentIfNotHandled()?.let {
-                        val action = ProjectDetailsFragmentDirections.actionProjectDetailsFragmentToProjectsFragment(it)
-                        findNavController().navigate(action)
-                    }
-                }
-            }
-
-        }
+        setupNavigation()
+        setupSnackbar()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -91,6 +71,23 @@ class ProjectDetailsFragment : Fragment() {
             showCreateNewDialog()
         }
         binding.rvTaskLists.adapter = adapter
+    }
+
+    private fun setupNavigation(){
+        viewModel.deleteProjectEvent.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let {
+                val action = ProjectDetailsFragmentDirections.actionProjectDetailsFragmentToProjectsFragment(it)
+                findNavController().navigate(action)
+            }
+        }
+    }
+
+    private fun setupSnackbar(){
+        viewModel.snackbarText.observe(viewLifecycleOwner){ event ->
+            event.getContentIfNotHandled()?.let { message ->
+                Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun showCreateNewDialog(){

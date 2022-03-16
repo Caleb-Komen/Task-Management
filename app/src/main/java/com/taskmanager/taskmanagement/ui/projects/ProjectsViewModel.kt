@@ -8,7 +8,7 @@ import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.domain.usecases.GetAllProjectsUseCase
 import com.taskmanager.taskmanagement.domain.usecases.InsertProjectUseCase
 import com.taskmanager.taskmanagement.ui.util.DELETE_OK
-import com.ujumbetech.archtask.Event
+import com.taskmanager.taskmanagement.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -55,7 +55,7 @@ class ProjectsViewModel @Inject constructor(
     fun showEditResultMessage(message: Int){
         if (resultMessageShown) return
         when (message) {
-            DELETE_OK -> _snackbarText.value = Event(message)
+            DELETE_OK -> _snackbarText.value = Event(R.string.project_deleted_message)
         }
         resultMessageShown = true
     }
