@@ -24,9 +24,11 @@ class ProjectDetailsViewModel @Inject constructor(
     private val deleteProjectUseCase: DeleteProjectUseCase,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    val projectId = savedStateHandle.get<String>(PROJECT_ID_KEY)!!
+    val projectId = savedStateHandle.getLiveData<String>(PROJECT_ID_KEY)
 
-    val _project = MutableLiveData<Project>()
+    private val _project = projectId.switchMap {
+        getProjectData(it)
+    }
     val project: LiveData<Project> get() = _project
 
     private val _dataLoading = MutableLiveData<Boolean>()
@@ -38,32 +40,33 @@ class ProjectDetailsViewModel @Inject constructor(
     private val _deleteProjectEvent = MutableLiveData<Event<Int>>()
     val deleteProjectEvent: LiveData<Event<Int>> get() = _deleteProjectEvent
 
-    fun getProjectData(){
+    fun getProjectData(projectId: String): LiveData<Project>{
         val resource = getProjectUseCase(projectId)
-        resource.distinctUntilChanged().map { res ->
+        return resource.asLiveData().distinctUntilChanged().switchMap { res ->
             filterType(res)
         }
     }
 
     fun createTaskList(taskList: TaskList){
         viewModelScope.launch {
-            insertTaskListUseCase(taskList, projectId)
+            insertTaskListUseCase(taskList, projectId.value!!)
         }
     }
 
     fun deleteProject(){
         viewModelScope.launch {
-            deleteProjectUseCase(projectId)
+            deleteProjectUseCase(projectId.value!!)
             _deleteProjectEvent.value = Event(DELETE_OK)
         }
     }
 
-    private fun filterType(resource: Resource<Project>?){
+    private fun filterType(resource: Resource<Project>?): LiveData<Project>{
+        val result = MutableLiveData<Project>()
         resource?.let { res ->
             when (res.status){
                 SUCCESS -> {
                     _dataLoading.value = false
-                    _project.value = res.data!!
+                    result.value = res.data!!
                 }
                 ERROR -> {
                     _dataLoading.value = false
@@ -74,6 +77,7 @@ class ProjectDetailsViewModel @Inject constructor(
                 }
             }
         }
+        return result
     }
 
     companion object{

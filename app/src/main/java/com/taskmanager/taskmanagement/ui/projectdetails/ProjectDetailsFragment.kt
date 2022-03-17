@@ -44,7 +44,7 @@ class ProjectDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getProjectData()
+//        viewModel.getProjectData()
         setupAdapter()
         setupNavigation()
         setupSnackbar()
