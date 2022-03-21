@@ -7,25 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.taskmanager.taskmanagement.R
 import com.taskmanager.taskmanagement.databinding.FragmentProjectsBinding
-import com.taskmanager.taskmanagement.databinding.NewProjectDialogBinding
-import com.taskmanager.taskmanagement.domain.model.Project
 import com.taskmanager.taskmanagement.ui.MainActivity
 import com.taskmanager.taskmanagement.ui.util.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
