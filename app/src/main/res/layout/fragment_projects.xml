@@ -3,10 +3,14 @@
 
     <data>
         <import type="android.view.View" />
-
+        <import type="java.util.List" />
+        <import type="com.taskmanager.taskmanagement.domain.model.Project" />
+<!--        <variable-->
+<!--            name="projects"-->
+<!--            type="List&lt;Project>" />-->
         <variable
-            name="viewmodel"
-            type="com.taskmanager.taskmanagement.ui.projects.ProjectsViewModel" />
+            name="show"
+            type="Boolean" />
     </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +25,6 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
-            app:items="@{viewmodel.allProjects}"
             tools:listitem="@layout/list_item_project" />
 
         <ProgressBar
@@ -29,7 +32,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
             android:layout_centerInParent="true"
-            android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{show ? View.VISIBLE : View.GONE}"/>
 
     </RelativeLayout>
 </layout>

@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskManagement">
         <activity
+            android:name=".ui.projects.NewProjectDialog"
+            android:exported="false"
+            android:theme="@style/Base.Theme.AppCompat.Dialog"
+            android:excludeFromRecents="true" />
+        <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
         <activity

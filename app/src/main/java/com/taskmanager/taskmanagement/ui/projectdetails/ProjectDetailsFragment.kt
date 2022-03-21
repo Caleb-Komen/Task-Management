@@ -44,10 +44,13 @@ class ProjectDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModel.getProjectData()
-        setupAdapter()
         setupNavigation()
         setupSnackbar()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

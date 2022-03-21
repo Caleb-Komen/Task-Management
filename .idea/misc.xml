@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/sign_up_button_background.xml" value="0.2005" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20260416666666667" />
+        <entry key="app/src/main/res/layout/activity_new_project_dialog.xml" value="0.18125" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.2838541666666667" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_project_details.xml" value="0.2947916666666667" />
